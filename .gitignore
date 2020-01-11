@@ -1,0 +1,8 @@
+.idea
+lib
+out
+resources
+*.iml
+*.scen
+*.map
+*.swp
