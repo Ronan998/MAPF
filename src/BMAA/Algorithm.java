@@ -1,9 +1,9 @@
 package BMAA;
 
+import Benchmark.Result;
 import com.google.common.base.Stopwatch;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.concurrent.Callable;
 
 public abstract class Algorithm implements Callable<Result> {
@@ -14,10 +14,10 @@ public abstract class Algorithm implements Callable<Result> {
         execute();
         stopwatch.stop();
 
-        return generateResults();
+        return generateResults(stopwatch.elapsed());
     }
 
-    abstract void execute();
+    public abstract void execute();
 
-    abstract Result generateResults();
+    public abstract Result generateResults(Duration runtime);
 }

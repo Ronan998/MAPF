@@ -1,0 +1,292 @@
+2:31:28.155556000 Wed Jan 29 14:31:28 GMT 2020
+2:31:28.173364000 Running BMAA with parameters from paper. Performing on one map
+2:31:28.175507000 Testing on map maps/BGII-AR0414SR (320*280).map
+2:31:28.181764000 Testing with 25 agents
+2:31:58.481958000 Instance run, completion rate: 0.96
+2:31:58.641788000 Instance run, completion rate: 1.0
+2:31:59.041985000 Instance run, completion rate: 1.0
+2:31:59.178264000 Instance run, completion rate: 1.0
+2:31:59.664891000 Instance run, completion rate: 1.0
+2:31:59.786170000 Instance run, completion rate: 1.0
+2:32:00.471023000 Instance run, completion rate: 1.0
+2:32:00.683184000 Instance run, completion rate: 1.0
+2:32:00.797042000 Instance run, completion rate: 1.0
+2:32:00.864845000 Instance run, completion rate: 1.0
+2:32:00.869591000 Average completion rate on instances: 0.9960000000000001
+2:32:00.870306000 Testing with 50 agents
+2:32:01.384906000 Instance run, completion rate: 1.0
+2:32:02.108674000 Instance run, completion rate: 1.0
+2:32:32.142320000 Instance run, completion rate: 0.98
+2:32:33.056967000 Instance run, completion rate: 1.0
+2:32:33.507423000 Instance run, completion rate: 1.0
+2:33:03.540097000 Instance run, completion rate: 0.98
+2:33:03.998371000 Instance run, completion rate: 1.0
+2:33:04.445394000 Instance run, completion rate: 1.0
+2:33:34.478100000 Instance run, completion rate: 0.98
+2:34:04.513092000 Instance run, completion rate: 0.98
+2:34:04.514948000 Average completion rate on instances: 0.992
+2:34:04.515466000 Testing with 75 agents
+2:34:34.567126000 Instance run, completion rate: 0.9466666666666667
+2:35:04.639102000 Instance run, completion rate: 0.9866666666666667
+2:35:05.263046000 Instance run, completion rate: 1.0
+2:35:05.512141000 Instance run, completion rate: 1.0
+2:35:35.566097000 Instance run, completion rate: 0.9866666666666667
+2:35:35.955617000 Instance run, completion rate: 1.0
+2:36:06.025189000 Instance run, completion rate: 0.9333333333333333
+2:36:36.069189000 Instance run, completion rate: 0.9333333333333333
+2:36:36.745662000 Instance run, completion rate: 1.0
+2:37:06.806103000 Instance run, completion rate: 0.9733333333333334
+2:37:06.809198000 Average completion rate on instances: 0.976
+2:37:06.809918000 Testing with 100 agents
+2:37:36.868177000 Instance run, completion rate: 0.99
+2:38:06.927145000 Instance run, completion rate: 0.99
+2:38:36.998108000 Instance run, completion rate: 0.99
+2:39:07.067101000 Instance run, completion rate: 0.99
+2:39:37.140100000 Instance run, completion rate: 0.96
+2:40:07.191114000 Instance run, completion rate: 0.99
+2:40:37.286160000 Instance run, completion rate: 0.97
+2:40:37.731252000 Instance run, completion rate: 1.0
+2:41:07.798106000 Instance run, completion rate: 0.99
+2:41:37.869106000 Instance run, completion rate: 0.96
+2:41:37.871820000 Average completion rate on instances: 0.983
+2:41:37.872533000 Testing with 125 agents
+2:42:07.939143000 Instance run, completion rate: 0.992
+2:42:38.034143000 Instance run, completion rate: 0.976
+2:43:08.111106000 Instance run, completion rate: 0.992
+2:43:38.179109000 Instance run, completion rate: 0.992
+2:44:08.267123000 Instance run, completion rate: 0.976
+2:44:38.335108000 Instance run, completion rate: 0.952
+2:45:08.394145000 Instance run, completion rate: 0.984
+2:45:38.478109000 Instance run, completion rate: 0.96
+2:46:08.549127000 Instance run, completion rate: 0.984
+2:46:38.613110000 Instance run, completion rate: 0.992
+2:46:38.613899000 Average completion rate on instances: 0.9800000000000001
+2:46:38.614370000 Testing with 150 agents
+2:47:08.717140000 Instance run, completion rate: 0.9933333333333333
+2:47:38.804153000 Instance run, completion rate: 0.9866666666666667
+2:48:08.904133000 Instance run, completion rate: 0.9666666666666667
+2:48:38.992117000 Instance run, completion rate: 0.9866666666666667
+2:49:09.076154000 Instance run, completion rate: 0.9866666666666667
+2:49:39.164885000 Instance run, completion rate: 0.9666666666666667
+2:49:41.244747000 Instance run, completion rate: 1.0
+2:50:11.323210000 Instance run, completion rate: 0.9866666666666667
+2:50:41.417126000 Instance run, completion rate: 0.9733333333333334
+2:51:11.491119000 Instance run, completion rate: 0.98
+2:51:11.493249000 Average completion rate on instances: 0.9826666666666666
+2:51:11.493891000 Testing with 175 agents
+2:51:41.609175000 Instance run, completion rate: 0.9885714285714285
+2:52:11.721171000 Instance run, completion rate: 0.9942857142857143
+2:52:41.809184000 Instance run, completion rate: 0.9885714285714285
+2:53:11.924278000 Instance run, completion rate: 0.9885714285714285
+2:53:42.013234000 Instance run, completion rate: 0.9942857142857143
+2:54:12.117306000 Instance run, completion rate: 0.9771428571428571
+2:54:42.232118000 Instance run, completion rate: 0.9714285714285714
+2:55:12.331138000 Instance run, completion rate: 0.9885714285714285
+2:55:42.434128000 Instance run, completion rate: 0.9771428571428571
+2:56:12.540126000 Instance run, completion rate: 0.9657142857142857
+2:56:12.546800000 Average completion rate on instances: 0.9834285714285714
+2:56:12.547381000 Testing with 200 agents
+2:56:42.669173000 Instance run, completion rate: 0.95
+2:57:12.810146000 Instance run, completion rate: 0.95
+2:57:42.942139000 Instance run, completion rate: 0.99
+2:58:13.082123000 Instance run, completion rate: 0.985
+2:58:43.193210000 Instance run, completion rate: 0.99
+2:59:13.310126000 Instance run, completion rate: 0.97
+2:59:43.435125000 Instance run, completion rate: 0.99
+3:00:13.556143000 Instance run, completion rate: 0.985
+3:00:43.697124000 Instance run, completion rate: 0.99
+3:01:13.808119000 Instance run, completion rate: 0.985
+3:01:13.810065000 Average completion rate on instances: 0.9785
+3:01:13.810638000 Testing with 225 agents
+3:01:43.922128000 Instance run, completion rate: 0.9688888888888889
+3:02:14.043141000 Instance run, completion rate: 0.9777777777777777
+3:02:44.160113000 Instance run, completion rate: 0.9777777777777777
+3:03:14.267132000 Instance run, completion rate: 0.9733333333333334
+3:03:44.418193000 Instance run, completion rate: 0.9777777777777777
+3:04:14.529141000 Instance run, completion rate: 0.9688888888888889
+3:04:44.672125000 Instance run, completion rate: 0.9822222222222222
+3:05:14.800143000 Instance run, completion rate: 0.9733333333333334
+3:05:44.923097000 Instance run, completion rate: 0.9777777777777777
+3:06:15.048121000 Instance run, completion rate: 0.9866666666666667
+3:06:15.049979000 Average completion rate on instances: 0.9764444444444444
+3:06:15.050575000 Testing with 250 agents
+3:06:45.222128000 Instance run, completion rate: 0.984
+3:07:15.374140000 Instance run, completion rate: 0.984
+3:07:45.484185000 Instance run, completion rate: 0.968
+3:08:15.627228000 Instance run, completion rate: 0.984
+3:08:45.774161000 Instance run, completion rate: 0.992
+3:09:15.910108000 Instance run, completion rate: 0.956
+3:09:46.055262000 Instance run, completion rate: 0.952
+3:10:16.191113000 Instance run, completion rate: 0.98
+3:10:46.323097000 Instance run, completion rate: 0.992
+3:11:16.449096000 Instance run, completion rate: 0.948
+3:11:16.449613000 Average completion rate on instances: 0.974
+3:11:16.449834000 Testing with 275 agents
+3:11:46.599169000 Instance run, completion rate: 0.9818181818181818
+3:12:16.744157000 Instance run, completion rate: 0.9818181818181818
+3:12:46.894126000 Instance run, completion rate: 0.9781818181818182
+3:13:17.038195000 Instance run, completion rate: 0.9745454545454545
+3:13:47.186126000 Instance run, completion rate: 0.92
+3:14:17.321128000 Instance run, completion rate: 0.9672727272727273
+3:14:47.473117000 Instance run, completion rate: 0.9781818181818182
+3:15:17.629233000 Instance run, completion rate: 0.9745454545454545
+3:15:47.795130000 Instance run, completion rate: 0.96
+3:16:17.980153000 Instance run, completion rate: 0.9527272727272728
+3:16:17.980561000 Average completion rate on instances: 0.9669090909090908
+3:16:17.980760000 Testing with 300 agents
+3:16:48.164139000 Instance run, completion rate: 0.9766666666666667
+3:17:18.322193000 Instance run, completion rate: 0.9766666666666667
+3:17:48.505181000 Instance run, completion rate: 0.96
+3:18:18.685168000 Instance run, completion rate: 0.9766666666666667
+3:18:48.873223000 Instance run, completion rate: 0.9733333333333334
+3:19:19.040142000 Instance run, completion rate: 0.96
+3:19:49.241266000 Instance run, completion rate: 0.9433333333333334
+3:20:19.425123000 Instance run, completion rate: 0.9566666666666667
+3:20:49.570176000 Instance run, completion rate: 0.95
+3:21:19.740120000 Instance run, completion rate: 0.97
+3:21:19.741767000 Average completion rate on instances: 0.9643333333333333
+3:21:19.742159000 Testing with 325 agents
+3:21:49.942109000 Instance run, completion rate: 0.9815384615384616
+3:22:20.151218000 Instance run, completion rate: 0.9753846153846154
+3:22:50.350193000 Instance run, completion rate: 0.9569230769230769
+3:23:20.522129000 Instance run, completion rate: 0.9753846153846154
+3:23:50.686088000 Instance run, completion rate: 0.9661538461538461
+3:24:20.882178000 Instance run, completion rate: 0.9907692307692307
+3:24:51.085171000 Instance run, completion rate: 0.9969230769230769
+3:25:21.324121000 Instance run, completion rate: 0.9815384615384616
+3:25:51.506100000 Instance run, completion rate: 0.9661538461538461
+3:26:21.686149000 Instance run, completion rate: 0.9261538461538461
+3:26:21.687998000 Average completion rate on instances: 0.9716923076923077
+3:26:21.688590000 Testing with 350 agents
+3:26:51.901290000 Instance run, completion rate: 0.9685714285714285
+3:27:22.062173000 Instance run, completion rate: 0.9771428571428571
+3:27:52.296155000 Instance run, completion rate: 0.98
+3:28:22.490156000 Instance run, completion rate: 0.9571428571428572
+3:28:52.676193000 Instance run, completion rate: 0.9685714285714285
+3:29:22.848188000 Instance run, completion rate: 0.9742857142857143
+3:29:53.041116000 Instance run, completion rate: 0.9857142857142858
+3:30:23.217089000 Instance run, completion rate: 0.9542857142857143
+3:30:53.411165000 Instance run, completion rate: 0.9828571428571429
+3:31:23.574120000 Instance run, completion rate: 0.9742857142857143
+3:31:23.576600000 Average completion rate on instances: 0.9722857142857142
+3:31:23.577114000 Testing with 375 agents
+3:31:53.813120000 Instance run, completion rate: 0.976
+3:32:24.006150000 Instance run, completion rate: 0.9786666666666667
+3:32:54.272132000 Instance run, completion rate: 0.976
+3:33:24.462129000 Instance run, completion rate: 0.9573333333333334
+3:33:54.685096000 Instance run, completion rate: 0.9706666666666667
+3:34:24.895276000 Instance run, completion rate: 0.9546666666666667
+3:34:55.106225000 Instance run, completion rate: 0.9653333333333334
+3:35:25.283114000 Instance run, completion rate: 0.9546666666666667
+3:35:55.496160000 Instance run, completion rate: 0.9573333333333334
+3:36:25.692151000 Instance run, completion rate: 0.976
+3:36:25.694256000 Average completion rate on instances: 0.9666666666666666
+3:36:25.694747000 Testing with 400 agents
+3:36:55.910247000 Instance run, completion rate: 0.965
+3:37:26.109185000 Instance run, completion rate: 0.9375
+3:37:56.331137000 Instance run, completion rate: 0.9625
+3:38:26.579125000 Instance run, completion rate: 0.96
+3:38:56.769236000 Instance run, completion rate: 0.9675
+3:39:26.972128000 Instance run, completion rate: 0.9675
+3:39:57.249104000 Instance run, completion rate: 0.9825
+3:40:27.441114000 Instance run, completion rate: 0.935
+3:40:57.625220000 Instance run, completion rate: 0.955
+3:41:27.843087000 Instance run, completion rate: 0.96
+3:41:27.845598000 Average completion rate on instances: 0.9592499999999999
+3:41:27.845925000 Testing with 600 agents
+3:41:58.191352000 Instance run, completion rate: 0.96
+3:42:28.459143000 Instance run, completion rate: 0.97
+3:42:58.776165000 Instance run, completion rate: 0.9483333333333334
+3:43:29.172165000 Instance run, completion rate: 0.9283333333333333
+3:43:59.475260000 Instance run, completion rate: 0.955
+3:44:29.776121000 Instance run, completion rate: 0.94
+3:45:00.105341000 Instance run, completion rate: 0.815
+3:45:30.458097000 Instance run, completion rate: 0.8616666666666667
+3:46:00.739181000 Instance run, completion rate: 0.87
+3:46:31.072361000 Instance run, completion rate: 0.9683333333333334
+3:46:31.074658000 Average completion rate on instances: 0.9216666666666666
+3:46:31.075016000 Testing with 800 agents
+3:47:01.534200000 Instance run, completion rate: 0.9425
+3:47:31.950522000 Instance run, completion rate: 0.7925
+3:48:02.428186000 Instance run, completion rate: 0.93375
+3:48:32.871204000 Instance run, completion rate: 0.96875
+3:49:03.269297000 Instance run, completion rate: 0.95
+3:49:33.684321000 Instance run, completion rate: 0.94
+3:50:04.129139000 Instance run, completion rate: 0.9225
+3:50:34.516427000 Instance run, completion rate: 0.85625
+3:51:04.927164000 Instance run, completion rate: 0.93625
+3:51:35.321343000 Instance run, completion rate: 0.80375
+3:51:35.323005000 Average completion rate on instances: 0.904625
+3:51:35.323346000 Testing with 1000 agents
+3:52:05.848232000 Instance run, completion rate: 0.849
+3:52:36.418414000 Instance run, completion rate: 0.871
+3:53:06.976271000 Instance run, completion rate: 0.923
+3:53:37.516420000 Instance run, completion rate: 0.934
+3:54:08.056641000 Instance run, completion rate: 0.849
+3:54:38.539499000 Instance run, completion rate: 0.767
+3:55:09.101393000 Instance run, completion rate: 0.826
+3:55:39.635255000 Instance run, completion rate: 0.801
+3:56:10.131130000 Instance run, completion rate: 0.821
+3:56:40.709299000 Instance run, completion rate: 0.937
+3:56:40.710734000 Average completion rate on instances: 0.8577999999999999
+3:56:40.711017000 Testing with 1200 agents
+3:57:11.398752000 Instance run, completion rate: 0.7475
+3:57:42.006866000 Instance run, completion rate: 0.7508333333333334
+3:58:12.622693000 Instance run, completion rate: 0.7583333333333333
+3:58:43.289768000 Instance run, completion rate: 0.83
+3:59:13.933507000 Instance run, completion rate: 0.755
+3:59:44.562136000 Instance run, completion rate: 0.8708333333333333
+4:00:15.204175000 Instance run, completion rate: 0.7241666666666666
+4:00:45.801198000 Instance run, completion rate: 0.7833333333333333
+4:01:16.444604000 Instance run, completion rate: 0.7041666666666667
+4:01:47.156459000 Instance run, completion rate: 0.9433333333333334
+4:01:47.156848000 Average completion rate on instances: 0.78675
+4:01:47.157045000 Testing with 1400 agents
+4:02:17.848110000 Instance run, completion rate: 0.7428571428571429
+4:02:48.611757000 Instance run, completion rate: 0.7542857142857143
+4:03:19.401512000 Instance run, completion rate: 0.7335714285714285
+4:03:50.123494000 Instance run, completion rate: 0.685
+4:04:20.830147000 Instance run, completion rate: 0.7957142857142857
+4:04:51.539568000 Instance run, completion rate: 0.8371428571428572
+4:05:22.274558000 Instance run, completion rate: 0.7621428571428571
+4:05:53.065115000 Instance run, completion rate: 0.7885714285714286
+4:06:23.820684000 Instance run, completion rate: 0.7328571428571429
+4:06:54.594686000 Instance run, completion rate: 0.6757142857142857
+4:06:54.596496000 Average completion rate on instances: 0.7507857142857143
+4:06:54.596902000 Testing with 1600 agents
+4:07:25.422147000 Instance run, completion rate: 0.651875
+4:07:56.269412000 Instance run, completion rate: 0.71625
+4:08:27.136986000 Instance run, completion rate: 0.675625
+4:08:58.018986000 Instance run, completion rate: 0.755625
+4:09:28.925338000 Instance run, completion rate: 0.7225
+4:09:59.750239000 Instance run, completion rate: 0.741875
+4:10:30.615443000 Instance run, completion rate: 0.75625
+4:11:01.428963000 Instance run, completion rate: 0.790625
+4:11:32.335495000 Instance run, completion rate: 0.670625
+4:12:03.234988000 Instance run, completion rate: 0.70125
+4:12:03.236485000 Average completion rate on instances: 0.71825
+4:12:03.236772000 Testing with 1800 agents
+4:12:34.149691000 Instance run, completion rate: 0.6611111111111111
+4:13:05.068262000 Instance run, completion rate: 0.6061111111111112
+4:13:36.010823000 Instance run, completion rate: 0.615
+4:14:07.090545000 Instance run, completion rate: 0.7016666666666667
+4:14:38.167533000 Instance run, completion rate: 0.6933333333333334
+4:15:09.162763000 Instance run, completion rate: 0.635
+4:15:40.291311000 Instance run, completion rate: 0.6516666666666666
+4:16:11.363339000 Instance run, completion rate: 0.67
+4:16:43.664350000 Instance run, completion rate: 0.8
+4:17:14.768163000 Instance run, completion rate: 0.6572222222222223
+4:17:14.768838000 Average completion rate on instances: 0.6691111111111111
+4:17:14.769127000 Testing with 2000 agents
+4:17:46.390793000 Instance run, completion rate: 0.6425
+4:18:17.954529000 Instance run, completion rate: 0.6435
+4:18:51.977953000 Instance run, completion rate: 0.607
+4:19:23.383170000 Instance run, completion rate: 0.5715
+4:19:55.031981000 Instance run, completion rate: 0.6885
+4:20:26.476823000 Instance run, completion rate: 0.728
+4:20:58.144933000 Instance run, completion rate: 0.631
+4:21:29.691721000 Instance run, completion rate: 0.6645
+4:22:00.975520000 Instance run, completion rate: 0.6065
+4:22:32.149684000 Instance run, completion rate: 0.7
+4:22:32.150261000 Average completion rate on instances: 0.6483
+4:22:32.176862000 Map: maps/BGII-AR0414SR (320*280).map Completion Rate: 0.9116860536454287

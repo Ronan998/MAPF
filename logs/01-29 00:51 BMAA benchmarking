@@ -1,0 +1,76 @@
+12:51:36.251004000 Wed Jan 29 00:51:36 GMT 2020
+12:51:36.284435000 Running BMAA with parameters from paper. Performing on one map
+12:51:36.286454000 Testing on map maps/BGII-AR0504SR (512*512).map
+12:51:36.293940000 Testing with 25 agents
+12:51:40.400084000 Instance run, completion rate: 1.0
+12:51:40.408011000 Average completion rate on instances: 1.0
+12:51:40.409169000 Testing with 50 agents
+12:52:10.863229000 Instance run, completion rate: 0.98
+12:52:10.864464000 Average completion rate on instances: 0.98
+12:52:10.865327000 Testing with 75 agents
+12:52:18.471215000 Instance run, completion rate: 1.0
+12:52:18.473430000 Average completion rate on instances: 1.0
+12:52:18.474381000 Testing with 100 agents
+12:52:28.170921000 Instance run, completion rate: 1.0
+12:52:28.172760000 Average completion rate on instances: 1.0
+12:52:28.173621000 Testing with 125 agents
+12:52:40.128449000 Instance run, completion rate: 1.0
+12:52:40.129224000 Average completion rate on instances: 1.0
+12:52:40.129813000 Testing with 150 agents
+12:53:10.637273000 Instance run, completion rate: 0.9866666666666667
+12:53:10.639757000 Average completion rate on instances: 0.9866666666666667
+12:53:10.640683000 Testing with 175 agents
+12:53:41.216356000 Instance run, completion rate: 0.9885714285714285
+12:53:41.217352000 Average completion rate on instances: 0.9885714285714285
+12:53:41.217944000 Testing with 200 agents
+12:54:11.861175000 Instance run, completion rate: 0.985
+12:54:11.862136000 Average completion rate on instances: 0.985
+12:54:11.862899000 Testing with 225 agents
+12:54:42.587170000 Instance run, completion rate: 0.9911111111111112
+12:54:42.588813000 Average completion rate on instances: 0.9911111111111112
+12:54:42.589590000 Testing with 250 agents
+12:55:13.187175000 Instance run, completion rate: 0.988
+12:55:13.187879000 Average completion rate on instances: 0.988
+12:55:13.188292000 Testing with 275 agents
+12:55:41.927758000 Instance run, completion rate: 1.0
+12:55:41.928800000 Average completion rate on instances: 1.0
+12:55:41.929513000 Testing with 300 agents
+12:56:12.797301000 Instance run, completion rate: 0.9533333333333334
+12:56:12.797995000 Average completion rate on instances: 0.9533333333333334
+12:56:12.798394000 Testing with 325 agents
+12:56:43.782555000 Instance run, completion rate: 0.8646153846153846
+12:56:43.784593000 Average completion rate on instances: 0.8646153846153846
+12:56:43.785506000 Testing with 350 agents
+12:57:14.998190000 Instance run, completion rate: 0.8342857142857143
+12:57:14.998916000 Average completion rate on instances: 0.8342857142857143
+12:57:14.999398000 Testing with 375 agents
+12:57:46.078349000 Instance run, completion rate: 0.9173333333333333
+12:57:46.079075000 Average completion rate on instances: 0.9173333333333333
+12:57:46.079408000 Testing with 400 agents
+12:58:17.121123000 Instance run, completion rate: 0.8725
+12:58:17.121865000 Average completion rate on instances: 0.8725
+12:58:17.122315000 Testing with 600 agents
+12:58:48.894203000 Instance run, completion rate: 0.8233333333333334
+12:58:48.894995000 Average completion rate on instances: 0.8233333333333334
+12:58:48.895469000 Testing with 800 agents
+12:59:21.097892000 Instance run, completion rate: 0.805
+12:59:21.098689000 Average completion rate on instances: 0.805
+12:59:21.099137000 Testing with 1000 agents
+12:59:53.721990000 Instance run, completion rate: 0.685
+12:59:53.722735000 Average completion rate on instances: 0.685
+12:59:53.723535000 Testing with 1200 agents
+1:00:27.818940000 Instance run, completion rate: 0.6916666666666667
+1:00:27.820293000 Average completion rate on instances: 0.6916666666666667
+1:00:27.821151000 Testing with 1400 agents
+1:01:01.798596000 Instance run, completion rate: 0.6692857142857143
+1:01:01.799302000 Average completion rate on instances: 0.6692857142857143
+1:01:01.799689000 Testing with 1600 agents
+1:01:36.208329000 Instance run, completion rate: 0.5425
+1:01:36.209108000 Average completion rate on instances: 0.5425
+1:01:36.209535000 Testing with 1800 agents
+1:02:11.744945000 Instance run, completion rate: 0.5894444444444444
+1:02:11.745638000 Average completion rate on instances: 0.5894444444444444
+1:02:11.745989000 Testing with 2000 agents
+1:02:47.322664000 Instance run, completion rate: 0.4485
+1:02:47.324300000 Average completion rate on instances: 0.4485
+1:02:47.330356000 Map: maps/BGII-AR0504SR (512*512).map Completion Rate: 0.8590061304436305

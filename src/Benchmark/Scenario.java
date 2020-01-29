@@ -1,11 +1,14 @@
 package Benchmark;
 
+import dataStructures.PriorityQueue;
 import dataStructures.graph.Graph;
 import dataStructures.graph.Node;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Scenario {
@@ -69,6 +72,43 @@ public class Scenario {
         catch (Exception e) {}
     }
 
+    // -----------------------------------------------------------------------------------------
 
+    public boolean allPathsExist() {
+        for (int i=0; i < this.s.size(); i++) {
+            Node start = this.s.get(i);
+            Node goal = this.t.get(i);
+
+            if (pathExists(start, goal) == false) return false;
+
+        }
+        return true;
+    }
+
+    private boolean pathExists(Node start, Node end) {
+        PriorityQueue<Node> open = new PriorityQueue<>();
+        Set<Node> closed = new HashSet<>();
+        int i = 0;
+        open.put(start, i);
+
+        while (!open.isEmpty()) {
+            Node n = open.get();
+            closed.add(n);
+
+            if (n == end) {
+                return true;
+            }
+
+            Set<Node> neighbours = graph.getNeigbours(n);
+            for (Node neighbour : neighbours) {
+                if  (!closed.contains(neighbour) && !open.contains(neighbour)) {
+                    i += 1;
+                    open.put(neighbour, i);
+                }
+            }
+        }
+
+        return false;
+    }
 
 }

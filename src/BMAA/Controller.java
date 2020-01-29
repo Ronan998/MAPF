@@ -1,5 +1,6 @@
 package BMAA;
 
+import com.google.common.base.Stopwatch;
 import dataStructures.graph.Node;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class Controller {
      *
      */
     public void run() {
+        Stopwatch stopwatch = Stopwatch.createStarted();
         while (true) {
 
             boolean complete = true;
@@ -40,7 +42,10 @@ public class Controller {
                     complete = false;
                 }
             }
-            if (complete) {System.out.println("All agents have reached their goals"); return;}
+            if (complete) {
+                stopwatch.stop();
+                return;
+            }
 
             for (Agent agent : agents) {
                 agent.searchPhase();

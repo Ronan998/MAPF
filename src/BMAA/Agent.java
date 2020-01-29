@@ -6,7 +6,7 @@ import dataStructures.graph.Node;
 
 import java.util.*;
 
-public class Agent implements BaseAgent{
+public class Agent{
 
     private Graph graph;
 
@@ -15,22 +15,20 @@ public class Agent implements BaseAgent{
     private Node current;
 
     private int expansions;
-    private int vision;
+    private double vision;
     private int moves;
-    private boolean push;
-    private boolean flow;
 
     private List<Node> pathPrefix;
     private int currentNodeIndex;
 
     private int limit = 0;
 
-    private int makespan;
+    private Time time;
 
     private HashMap<Node, Double> heuristics = new HashMap<>();
 
     public Agent(Graph graph, Node start, Node goal,
-                 int expansions, int vision, int moves, boolean push, boolean flow) {
+                 int expansions, double vision, int moves, Time time) {
         this.graph = graph;
         this.start = start;
         this.goal = goal;
@@ -38,8 +36,8 @@ public class Agent implements BaseAgent{
         this.expansions = expansions;
         this.vision = vision;
         this.moves = moves;
-        this.push = push;
-        this.flow = flow;
+
+        this.time = time;
 
         this.current = start;
 
@@ -49,12 +47,13 @@ public class Agent implements BaseAgent{
         this.currentNodeIndex = 0;
 
 
+
     }
 
     // -----------------------------------
 
     public void searchPhase() {
-        if (!nextNodeIsDefined() || Controller.getTime() > limit) {
+        if (!nextNodeIsDefined() || time.getTime() > limit) {
             SearchState state = search();
             PriorityQueue<Node> open = state.getOpen();
             Map<Node, Node> closed = state.getClosed();
@@ -64,7 +63,7 @@ public class Agent implements BaseAgent{
                 Node n = open.get();
                 double f = gCosts.get(n) + h(n);
                 updateHeuristicValues(closed,gCosts, f);
-                limit = Controller.getTime() + moves;
+                limit = time.getTime() + moves;
             }
         }
     }
@@ -82,8 +81,9 @@ public class Agent implements BaseAgent{
         Map<Node, Node> parents = new HashMap<>();
         parents.put(current, null);
 
+        Node n = null;
         while (!open.isEmpty()) {
-            Node n = open.get();
+            n = open.get();
             closed.put(n, parents.get(n));
 
             if (n == goal || exp > expansions) {
@@ -120,8 +120,8 @@ public class Agent implements BaseAgent{
             }
             exp += 1;
         }
-
-        throw new RuntimeException("Failed to find goal");
+        buildPath(closed, n);
+        return new SearchState(open, closed, gCosts);
     }
 
     private void buildPath(Map<Node, Node> closed, Node n) {
@@ -282,12 +282,10 @@ public class Agent implements BaseAgent{
 
     // ----------------------------------------------------------------------
 
-
-    @Override
-    public int makespan() {
-        return this.makespan;
-    }
-
+    /**
+     * Print a summary of the agents current state
+     * @return a multiline string containing the agents current state
+     */
     public String getSummary() {
         String pathStr = "[";
         for (Node n : pathPrefix) {
@@ -299,7 +297,7 @@ public class Agent implements BaseAgent{
                 "Starting Node: " + start + "\n" +
                 "Goal Node: " + goal +  "\n" +
                 "Path: " + pathStr +  "\n" +
-                "Time: " + Controller.getTime();
+                "Time: " + time.getTime();
 
     }
 

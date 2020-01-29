@@ -1,0 +1,71 @@
+10:43:47.398113000 Wed Jan 29 10:43:47 GMT 2020
+10:43:47.421965000 Running BMAA with parameters from paper. Performing on one map
+10:43:47.424691000 Testing on map maps/WCIII-duskwood (512*512).map
+10:43:47.433432000 Testing with 25 agents
+10:44:18.631705000 Instance run, completion rate: 0.96
+10:44:19.324482000 Instance run, completion rate: 1.0
+10:44:19.908801000 Instance run, completion rate: 1.0
+10:44:50.698151000 Instance run, completion rate: 0.96
+10:44:51.200842000 Instance run, completion rate: 1.0
+10:44:52.175307000 Instance run, completion rate: 1.0
+10:44:53.813963000 Instance run, completion rate: 1.0
+10:44:55.151260000 Instance run, completion rate: 1.0
+10:44:56.174325000 Instance run, completion rate: 1.0
+10:44:57.535174000 Instance run, completion rate: 1.0
+10:44:57.545087000 Average completion rate on instances: 0.992
+10:44:57.545800000 Testing with 50 agents
+10:44:58.784285000 Instance run, completion rate: 1.0
+10:45:00.154730000 Instance run, completion rate: 1.0
+10:45:30.415261000 Instance run, completion rate: 0.98
+10:45:31.344142000 Instance run, completion rate: 1.0
+10:45:33.096848000 Instance run, completion rate: 1.0
+10:46:03.292099000 Instance run, completion rate: 0.96
+10:46:04.177356000 Instance run, completion rate: 1.0
+10:46:04.756073000 Instance run, completion rate: 1.0
+10:46:06.819536000 Instance run, completion rate: 1.0
+10:46:08.034744000 Instance run, completion rate: 1.0
+10:46:08.035721000 Average completion rate on instances: 0.994
+10:46:08.036201000 Testing with 75 agents
+10:46:38.426095000 Instance run, completion rate: 0.9866666666666667
+10:47:08.681144000 Instance run, completion rate: 0.96
+10:47:38.920126000 Instance run, completion rate: 0.9733333333333334
+10:47:40.514970000 Instance run, completion rate: 1.0
+10:47:42.107019000 Instance run, completion rate: 1.0
+10:47:43.751957000 Instance run, completion rate: 1.0
+10:47:46.072558000 Instance run, completion rate: 1.0
+10:47:48.177233000 Instance run, completion rate: 1.0
+10:47:50.313310000 Instance run, completion rate: 1.0
+10:48:20.584124000 Instance run, completion rate: 0.9866666666666667
+10:48:20.585452000 Average completion rate on instances: 0.9906666666666666
+10:48:20.586054000 Testing with 100 agents
+10:48:50.915473000 Instance run, completion rate: 0.99
+10:48:53.176147000 Instance run, completion rate: 1.0
+10:48:56.582995000 Instance run, completion rate: 1.0
+10:48:58.928793000 Instance run, completion rate: 1.0
+10:49:02.312740000 Instance run, completion rate: 1.0
+10:49:04.560076000 Instance run, completion rate: 1.0
+10:49:06.593957000 Instance run, completion rate: 1.0
+10:49:12.121759000 Instance run, completion rate: 1.0
+10:49:42.804125000 Instance run, completion rate: 0.98
+10:49:45.020641000 Instance run, completion rate: 1.0
+10:49:45.021433000 Average completion rate on instances: 0.9970000000000001
+10:49:45.021858000 Testing with 125 agents
+10:50:15.347253000 Instance run, completion rate: 0.976
+10:50:18.926444000 Instance run, completion rate: 1.0
+10:50:22.350822000 Instance run, completion rate: 1.0
+10:50:52.705736000 Instance run, completion rate: 0.992
+10:50:55.850143000 Instance run, completion rate: 1.0
+10:50:59.841338000 Instance run, completion rate: 1.0
+10:51:04.460883000 Instance run, completion rate: 1.0
+10:51:34.784135000 Instance run, completion rate: 0.992
+10:52:05.113120000 Instance run, completion rate: 0.976
+10:52:35.583147000 Instance run, completion rate: 0.992
+10:52:35.584136000 Average completion rate on instances: 0.9928000000000001
+10:52:35.584621000 Testing with 150 agents
+10:53:05.965251000 Instance run, completion rate: 0.9866666666666667
+10:53:10.533792000 Instance run, completion rate: 1.0
+10:53:40.892184000 Instance run, completion rate: 0.9933333333333333
+10:53:44.407745000 Instance run, completion rate: 1.0
+10:54:14.781133000 Instance run, completion rate: 0.9933333333333333
+10:54:45.161109000 Instance run, completion rate: 0.9866666666666667
+10:55:15.502166000 Instance run, completion rate: 0.98

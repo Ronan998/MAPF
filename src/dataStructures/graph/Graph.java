@@ -21,7 +21,7 @@ public class Graph {
     private Map<Node, Map<Node, Edge>> structure = new HashMap<>();
     private final boolean directed;
 
-    private Map<Integer, Map<Integer, Node>> pointMapping = new HashMap();
+    private Map<Integer, Map<Integer, Node>> pointMapping = new HashMap<>();
 
     public Graph(boolean directed) {
         this.directed = directed;
@@ -222,5 +222,39 @@ public class Graph {
             node = record.get(node);
         }
         return path;
+    }
+
+    /**
+     * Determine if a path exists between two nodes.
+     * @param a Node at one end of the path.
+     * @param b Node at the other end of the path.
+     * @return true if a path exists, false otherwise.
+     */
+    public boolean pathExists(Node a, Node b) {
+        PriorityQueue<Node> open = new PriorityQueue<>();
+        Set<Node> closed = new HashSet<>();
+
+        open.put(a, 0);
+        while (!open.isEmpty()) {
+            Node n = open.get();
+            closed.add(n);
+
+            if (n == b) {
+                return true;
+            }
+
+            Set<Node> neighbours = getNeigbours(n);
+            for (Node neighbour : neighbours) {
+
+                if (!closed.contains(neighbour)) {
+
+                    if (!open.contains(neighbour)) {
+                        open.put(neighbour, n.octileDistance(b));
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

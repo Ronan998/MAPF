@@ -64,7 +64,7 @@ public class Node{
 
     @Override
     public String toString() {
-        return "(" + this.getElement() + " - " + this.x + "," + this.y + ")";
+        return "(" + this.x + "," + this.y + ")";
     }
 
     public String getElement() {
