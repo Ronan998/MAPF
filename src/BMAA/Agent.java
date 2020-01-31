@@ -14,6 +14,13 @@ public class Agent{
     private Node goal;
     private Node current;
 
+    private Node lastPosition;
+    private long lastMoveTime;
+
+    private Long lastTimeAtGoal;
+    private Integer completionTimeSteps;
+    private Double travelDistance;
+
     private int expansions;
     private double vision;
     private int moves;
@@ -39,6 +46,7 @@ public class Agent{
 
         this.time = time;
 
+        this.lastPosition = start;
         this.current = start;
 
         this.pathPrefix = new ArrayList<>();
@@ -46,7 +54,11 @@ public class Agent{
 
         this.currentNodeIndex = 0;
 
+        this.lastPosition = null;
 
+        this.lastTimeAtGoal = null;
+        this.completionTimeSteps = null;
+        this.travelDistance = 0.00;
 
     }
 
@@ -210,7 +222,6 @@ public class Agent{
 
     // -----------------------------------
 
-
     /**
      * Returns the node which the agent started at.
      * @return the starting node of the agent
@@ -235,8 +246,51 @@ public class Agent{
         return current;
     }
 
+    /**
+     * Get the node that the agent occupied in the previous time step
+     * @return the node it occupied in the previous time step
+     */
+    public Node getLastPosition() {
+        return lastPosition;
+    }
+
+    /**
+     * Get the system time in which the agent last moved
+     * @return the time the agent last moved
+     */
+    public long getLastMoveTime() {
+        return lastMoveTime;
+    }
+
+    /**
+     * Get the system time of which the agent last reached its goal
+     * @return the time at which the agent last entered its goal node
+     */
+    public Long getLastTimeAtGoal() {
+        return lastTimeAtGoal;
+    }
+
+    /**
+     * Return whether or not the agent currently occupies its goal location
+     * @return a boolean indicating if the agent is on its goal
+     */
     public boolean atGoal() {
         return current == goal;
+    }
+
+    /**
+     * Return whether or not the agent occupied its goal.
+     * If the last time it moved was after the time limit, then we check if its last position was it goal.
+     * @param timeLimit the time after which moves are considered invalid.
+     * @return a boolean indicating if the agent is/was at its goal.
+     */
+    public boolean atGoal(long timeLimit) {
+        if (lastMoveTime > timeLimit) {
+            return getLastPosition() == getGoal();
+        }
+        else {
+            return getCurrent() == getGoal();
+        }
     }
 
     /**
@@ -245,10 +299,17 @@ public class Agent{
      * to is clear of any obstacles.
      */
     public void moveToNextOnPath() {
+        this.lastMoveTime = System.currentTimeMillis();
+        this.lastPosition = this.current;
+
         this.current.leave();
         this.currentNodeIndex += 1;
         this.current = this.pathPrefix.get(currentNodeIndex);
         this.current.enter(this);
+        updateCompletionTimeSeconds();
+        updateCompletionTimeSteps();
+        double cost = graph.getEdge(lastPosition, current).getWeight();
+        updateTravelDistance(cost);
     }
 
     /**
@@ -256,9 +317,15 @@ public class Agent{
      * @param node the node to move to.
      */
     private void moveTo(Node node){
+        this.lastMoveTime = System.currentTimeMillis();
+        this.lastPosition = this.current;
         this.current.leave();
         this.current = node;
         this.current.enter(this);
+        updateCompletionTimeSeconds();
+        updateCompletionTimeSteps();
+        double cost = graph.getEdge(lastPosition, current).getWeight();
+        updateTravelDistance(cost);
     }
 
     /**
@@ -283,8 +350,58 @@ public class Agent{
     // ----------------------------------------------------------------------
 
     /**
+     * If the agent is at its goal, update the completion time in seconds to reflect this
+     */
+    private void updateCompletionTimeSeconds() {
+        if (this.current == this.goal) {
+            this.lastTimeAtGoal = System.currentTimeMillis();
+        }
+    }
+
+    /**
+     * Update the completion time (time steps) of the agent.
+     * If the agent is not at its goal, its completion time (time steps is undefined)
+     */
+    private void updateCompletionTimeSteps() {
+        if (this.current == goal) {
+            this.completionTimeSteps = time.getTime();
+        }
+        else {
+            this.completionTimeSteps = null;
+        }
+    }
+
+    /**
+     * Get the time step at which the agent reached its goal.
+     * If the agent is not currently on its goal, then the completion time (time steps) is undefined (null)
+     * We must add 1 to the return value because time steps begin at 0.
+     * If by chance the agent starts on its goal, its completionTime will be
+     * @return the time step at which the agent reached its goal.
+     */
+    public Integer getCompletionTimeSteps() {
+        return completionTimeSteps;
+    }
+
+    /**
+     * Add the cost of the edge just traversed to the agents travel distance.
+     * This method should be called every time the agent moves.
+     */
+    private void updateTravelDistance(double cost) {
+        this.travelDistance += cost;
+    }
+
+    /**
+     * Get the travel distance of the agent.
+     * Travel distance is defined as the sum of costs of the edges traversed by the agent.
+     * @return a double which is the agents travel distance
+     */
+    public Double getTravelDistance() {
+        return travelDistance;
+    }
+
+    /**
      * Print a summary of the agents current state
-     * @return a multiline string containing the agents current state
+     * @return a multi-line string containing the agents current state
      */
     public String getSummary() {
         String pathStr = "[";

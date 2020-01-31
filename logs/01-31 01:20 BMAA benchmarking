@@ -1,0 +1,513 @@
+1:20:55.163118000 Fri Jan 31 01:20:55 GMT 2020
+1:20:55.184822000 Running BMAA with parameters: expansions - 32, vision - sqrt 2, moves - 32, push - false, flow - false
+1:20:55.186889000 Map: maps/BGII-AR0414SR (320*280).map
+1:20:55.189340000 
+
+1:20:55.196646000 Testing with 25 agents
+1:20:55.197963000 
+1:20:55.199287000 Instance 0
+1:20:55.474729000 Problem Set: 
+	Number of agents: 25
+	Shortest distance: 11.485281374238571
+	Longest distance: 197.49747468305833
+	Average distance: 101.32021638285529
+1:20:55.963488000 Result: 
+	Completion Rate: 1.0
+	Average Completion Time (Seconds): 0.0
+	Average Completion Time (Steps): 199.88
+	Average Travel Distance: 234.30196231337558
+1:20:55.969129000 Results averaged over 1 instances:
+1:20:55.970369000 Result: 
+	Completion Rate: 1.0
+	Average Completion Time (Seconds): 0.0
+	Average Completion Time (Steps): 199.88
+	Average Travel Distance: 234.30196231337558
+1:20:55.973381000 
+
+1:20:55.974546000 Testing with 50 agents
+1:20:55.975448000 
+1:20:55.976242000 Instance 0
+1:20:56.105013000 Problem Set: 
+	Number of agents: 50
+	Shortest distance: 8.242640687119286
+	Longest distance: 191.71067811865476
+	Average distance: 89.65694510988448
+1:21:26.105568000 Result: 
+	Completion Rate: 0.96
+	Average Completion Time (Seconds): 1.2
+	Average Completion Time (Steps): 244.6
+	Average Travel Distance: 181.25474734076099
+1:21:26.106851000 Results averaged over 1 instances:
+1:21:26.107681000 Result: 
+	Completion Rate: 0.96
+	Average Completion Time (Seconds): 1.2
+	Average Completion Time (Steps): 244.6
+	Average Travel Distance: 181.25474734076099
+1:21:26.108490000 
+
+1:21:26.109212000 Testing with 75 agents
+1:21:26.109860000 
+1:21:26.110644000 Instance 0
+1:21:26.190222000 Problem Set: 
+	Number of agents: 75
+	Shortest distance: 11.65685424949238
+	Longest distance: 181.32085117392117
+	Average distance: 82.1077469387047
+1:21:56.191690000 Result: 
+	Completion Rate: 0.9733333333333334
+	Average Completion Time (Seconds): 0.8
+	Average Completion Time (Steps): 233.86666666666667
+	Average Travel Distance: 220.8549089270331
+1:21:56.192652000 Results averaged over 1 instances:
+1:21:56.193192000 Result: 
+	Completion Rate: 0.9733333333333334
+	Average Completion Time (Seconds): 0.8
+	Average Completion Time (Steps): 233.86666666666667
+	Average Travel Distance: 220.8549089270331
+1:21:56.193646000 
+
+1:21:56.194062000 Testing with 100 agents
+1:21:56.194510000 
+1:21:56.194953000 Instance 0
+1:21:56.279529000 Problem Set: 
+	Number of agents: 100
+	Shortest distance: 19.242640687119284
+	Longest distance: 184.6639969244288
+	Average distance: 91.27522938113194
+1:22:26.280439000 Result: 
+	Completion Rate: 0.98
+	Average Completion Time (Seconds): 0.6
+	Average Completion Time (Steps): 221.2
+	Average Travel Distance: 194.9006679663689
+1:22:26.281121000 Results averaged over 1 instances:
+1:22:26.281621000 Result: 
+	Completion Rate: 0.98
+	Average Completion Time (Seconds): 0.6
+	Average Completion Time (Steps): 221.2
+	Average Travel Distance: 194.9006679663689
+1:22:26.282239000 
+
+1:22:26.282692000 Testing with 125 agents
+1:22:26.283110000 
+1:22:26.283539000 Instance 0
+1:22:26.363445000 Problem Set: 
+	Number of agents: 125
+	Shortest distance: 4.414213562373095
+	Longest distance: 193.59292911256333
+	Average distance: 91.5181915757162
+1:22:56.364504000 Result: 
+	Completion Rate: 0.992
+	Average Completion Time (Seconds): 0.24
+	Average Completion Time (Steps): 448.888
+	Average Travel Distance: 330.9418623880832
+1:22:56.365326000 Results averaged over 1 instances:
+1:22:56.365794000 Result: 
+	Completion Rate: 0.992
+	Average Completion Time (Seconds): 0.24
+	Average Completion Time (Steps): 448.888
+	Average Travel Distance: 330.9418623880832
+1:22:56.366241000 
+
+1:22:56.366614000 Testing with 150 agents
+1:22:56.366989000 
+1:22:56.367377000 Instance 0
+1:22:56.483224000 Problem Set: 
+	Number of agents: 150
+	Shortest distance: 6.82842712474619
+	Longest distance: 205.92388155425118
+	Average distance: 92.16265842871442
+1:23:26.483722000 Result: 
+	Completion Rate: 0.9933333333333333
+	Average Completion Time (Seconds): 0.21333333333333335
+	Average Completion Time (Steps): 487.52666666666664
+	Average Travel Distance: 449.36016562142584
+1:23:26.485459000 Results averaged over 1 instances:
+1:23:26.486186000 Result: 
+	Completion Rate: 0.9933333333333333
+	Average Completion Time (Seconds): 0.21333333333333335
+	Average Completion Time (Steps): 487.52666666666664
+	Average Travel Distance: 449.36016562142584
+1:23:26.486810000 
+
+1:23:26.487262000 Testing with 175 agents
+1:23:26.487687000 
+1:23:26.488040000 Instance 0
+1:23:26.640892000 Problem Set: 
+	Number of agents: 175
+	Shortest distance: 7.242640687119286
+	Longest distance: 209.91168824543144
+	Average distance: 89.30510198355144
+1:23:56.641380000 Result: 
+	Completion Rate: 0.9942857142857143
+	Average Completion Time (Seconds): 0.21714285714285714
+	Average Completion Time (Steps): 987.8285714285714
+	Average Travel Distance: 640.072258870222
+1:23:56.643378000 Results averaged over 1 instances:
+1:23:56.644145000 Result: 
+	Completion Rate: 0.9942857142857143
+	Average Completion Time (Seconds): 0.21714285714285714
+	Average Completion Time (Steps): 987.8285714285714
+	Average Travel Distance: 640.072258870222
+1:23:56.644648000 
+
+1:23:56.645230000 Testing with 200 agents
+1:23:56.645740000 
+1:23:56.646611000 Instance 0
+1:23:56.764127000 Problem Set: 
+	Number of agents: 200
+	Shortest distance: 3.8284271247461903
+	Longest distance: 230.84062043356596
+	Average distance: 97.15874885303803
+1:24:26.764316000 Result: 
+	Completion Rate: 0.99
+	Average Completion Time (Seconds): 0.345
+	Average Completion Time (Steps): 541.27
+	Average Travel Distance: 440.0418395093592
+1:24:26.764943000 Results averaged over 1 instances:
+1:24:26.765282000 Result: 
+	Completion Rate: 0.99
+	Average Completion Time (Seconds): 0.345
+	Average Completion Time (Steps): 541.27
+	Average Travel Distance: 440.0418395093592
+1:24:26.765571000 
+
+1:24:26.765917000 Testing with 225 agents
+1:24:26.766247000 
+1:24:26.766589000 Instance 0
+1:24:26.905778000 Problem Set: 
+	Number of agents: 225
+	Shortest distance: 10.242640687119286
+	Longest distance: 201.59797974644667
+	Average distance: 92.75240045040125
+1:24:56.906308000 Result: 
+	Completion Rate: 0.9911111111111112
+	Average Completion Time (Seconds): 0.36
+	Average Completion Time (Steps): 944.4488888888889
+	Average Travel Distance: 628.9735535011312
+1:24:56.907923000 Results averaged over 1 instances:
+1:24:56.908314000 Result: 
+	Completion Rate: 0.9911111111111112
+	Average Completion Time (Seconds): 0.36
+	Average Completion Time (Steps): 944.4488888888889
+	Average Travel Distance: 628.9735535011312
+1:24:56.908603000 
+
+1:24:56.908927000 Testing with 250 agents
+1:24:56.909195000 
+1:24:56.909521000 Instance 0
+1:24:57.093586000 Problem Set: 
+	Number of agents: 250
+	Shortest distance: 8.485281374238571
+	Longest distance: 268.8061325481598
+	Average distance: 97.4256934447421
+1:25:27.094330000 Result: 
+	Completion Rate: 0.984
+	Average Completion Time (Seconds): 0.576
+	Average Completion Time (Steps): 1061.088
+	Average Travel Distance: 564.6032108519393
+1:25:27.096265000 Results averaged over 1 instances:
+1:25:27.097087000 Result: 
+	Completion Rate: 0.984
+	Average Completion Time (Seconds): 0.576
+	Average Completion Time (Steps): 1061.088
+	Average Travel Distance: 564.6032108519393
+1:25:27.097629000 
+
+1:25:27.097949000 Testing with 275 agents
+1:25:27.098348000 
+1:25:27.098678000 Instance 0
+1:25:27.253218000 Problem Set: 
+	Number of agents: 275
+	Shortest distance: 5.656854249492381
+	Longest distance: 217.43354954612926
+	Average distance: 97.77842732549787
+1:25:57.253406000 Result: 
+	Completion Rate: 0.9854545454545455
+	Average Completion Time (Seconds): 0.5454545454545454
+	Average Completion Time (Steps): 502.19272727272727
+	Average Travel Distance: 299.79782871771573
+1:25:57.255111000 Results averaged over 1 instances:
+1:25:57.255954000 Result: 
+	Completion Rate: 0.9854545454545455
+	Average Completion Time (Seconds): 0.5454545454545454
+	Average Completion Time (Steps): 502.19272727272727
+	Average Travel Distance: 299.79782871771573
+1:25:57.256301000 
+
+1:25:57.256836000 Testing with 300 agents
+1:25:57.257085000 
+1:25:57.257324000 Instance 0
+1:25:57.423810000 Problem Set: 
+	Number of agents: 300
+	Shortest distance: 7.0710678118654755
+	Longest distance: 251.83556979968262
+	Average distance: 96.35220147874826
+1:26:27.424466000 Result: 
+	Completion Rate: 0.98
+	Average Completion Time (Seconds): 0.68
+	Average Completion Time (Steps): 924.2033333333334
+	Average Travel Distance: 435.85574066731476
+1:26:27.425944000 Results averaged over 1 instances:
+1:26:27.426402000 Result: 
+	Completion Rate: 0.98
+	Average Completion Time (Seconds): 0.68
+	Average Completion Time (Steps): 924.2033333333334
+	Average Travel Distance: 435.85574066731476
+1:26:27.427112000 
+
+1:26:27.427568000 Testing with 325 agents
+1:26:27.427949000 
+1:26:27.428353000 Instance 0
+1:26:27.624956000 Problem Set: 
+	Number of agents: 325
+	Shortest distance: 1.0
+	Longest distance: 232.14927829866735
+	Average distance: 98.72034714320026
+1:26:57.625382000 Result: 
+	Completion Rate: 0.9907692307692307
+	Average Completion Time (Seconds): 0.38769230769230767
+	Average Completion Time (Steps): 766.8369230769231
+	Average Travel Distance: 435.99054114326157
+1:26:57.626967000 Results averaged over 1 instances:
+1:26:57.627306000 Result: 
+	Completion Rate: 0.9907692307692307
+	Average Completion Time (Seconds): 0.38769230769230767
+	Average Completion Time (Steps): 766.8369230769231
+	Average Travel Distance: 435.99054114326157
+1:26:57.627608000 
+
+1:26:57.627844000 Testing with 350 agents
+1:26:57.628086000 
+1:26:57.628338000 Instance 0
+1:26:57.895555000 Problem Set: 
+	Number of agents: 350
+	Shortest distance: 8.414213562373096
+	Longest distance: 212.94112549695427
+	Average distance: 94.38556683239935
+1:27:27.896464000 Result: 
+	Completion Rate: 0.9828571428571429
+	Average Completion Time (Seconds): 0.8314285714285714
+	Average Completion Time (Steps): 1466.6771428571428
+	Average Travel Distance: 676.6652159637936
+1:27:27.896917000 Results averaged over 1 instances:
+1:27:27.897195000 Result: 
+	Completion Rate: 0.9828571428571429
+	Average Completion Time (Seconds): 0.8314285714285714
+	Average Completion Time (Steps): 1466.6771428571428
+	Average Travel Distance: 676.6652159637936
+1:27:27.897398000 
+
+1:27:27.897635000 Testing with 375 agents
+1:27:27.897856000 
+1:27:27.898174000 Instance 0
+1:27:28.170389000 Problem Set: 
+	Number of agents: 375
+	Shortest distance: 0.0
+	Longest distance: 231.97770542341357
+	Average distance: 92.3720595824162
+1:27:58.171378000 Result: 
+	Completion Rate: 0.9813333333333333
+	Average Completion Time (Seconds): 0.8426666666666667
+	Average Completion Time (Steps): 1322.3093333333334
+	Average Travel Distance: 575.8382118005987
+1:27:58.172855000 Results averaged over 1 instances:
+1:27:58.173328000 Result: 
+	Completion Rate: 0.9813333333333333
+	Average Completion Time (Seconds): 0.8426666666666667
+	Average Completion Time (Steps): 1322.3093333333334
+	Average Travel Distance: 575.8382118005987
+1:27:58.173708000 
+
+1:27:58.174216000 Testing with 400 agents
+1:27:58.174604000 
+1:27:58.175012000 Instance 0
+1:27:58.395481000 Problem Set: 
+	Number of agents: 400
+	Shortest distance: 4.0
+	Longest distance: 247.1370849898476
+	Average distance: 93.56235708272901
+1:28:28.396318000 Result: 
+	Completion Rate: 0.95
+	Average Completion Time (Seconds): 1.65
+	Average Completion Time (Steps): 1131.225
+	Average Travel Distance: 393.00796760815393
+1:28:28.396741000 Results averaged over 1 instances:
+1:28:28.396970000 Result: 
+	Completion Rate: 0.95
+	Average Completion Time (Seconds): 1.65
+	Average Completion Time (Steps): 1131.225
+	Average Travel Distance: 393.00796760815393
+1:28:28.397145000 
+
+1:28:28.397315000 Testing with 600 agents
+1:28:28.397497000 
+1:28:28.397666000 Instance 0
+1:28:28.752368000 Problem Set: 
+	Number of agents: 600
+	Shortest distance: 2.8284271247461903
+	Longest distance: 237.66904755831214
+	Average distance: 91.636343614372
+1:28:58.753642000 Result: 
+	Completion Rate: 0.8183333333333334
+	Average Completion Time (Seconds): 5.82
+	Average Completion Time (Steps): 3980.685
+	Average Travel Distance: 453.59033841128945
+1:28:58.754039000 Results averaged over 1 instances:
+1:28:58.754342000 Result: 
+	Completion Rate: 0.8183333333333334
+	Average Completion Time (Seconds): 5.82
+	Average Completion Time (Steps): 3980.685
+	Average Travel Distance: 453.59033841128945
+1:28:58.754582000 
+
+1:28:58.754756000 Testing with 800 agents
+1:28:58.754920000 
+1:28:58.755089000 Instance 0
+1:28:59.270246000 Problem Set: 
+	Number of agents: 800
+	Shortest distance: 4.82842712474619
+	Longest distance: 227.5269119345812
+	Average distance: 97.73787160011281
+1:29:29.272432000 Result: 
+	Completion Rate: 0.87875
+	Average Completion Time (Seconds): 4.44
+	Average Completion Time (Steps): 3932.9025
+	Average Travel Distance: 362.6922548725257
+1:29:29.273792000 Results averaged over 1 instances:
+1:29:29.274074000 Result: 
+	Completion Rate: 0.87875
+	Average Completion Time (Seconds): 4.44
+	Average Completion Time (Steps): 3932.9025
+	Average Travel Distance: 362.6922548725257
+1:29:29.274255000 
+
+1:29:29.274461000 Testing with 1000 agents
+1:29:29.274619000 
+1:29:29.274777000 Instance 0
+1:29:29.775945000 Problem Set: 
+	Number of agents: 1000
+	Shortest distance: 2.0
+	Longest distance: 244.58073580374355
+	Average distance: 92.37980910170712
+1:29:59.777538000 Result: 
+	Completion Rate: 0.869
+	Average Completion Time (Seconds): 4.87
+	Average Completion Time (Steps): 2540.99
+	Average Travel Distance: 309.45427725792814
+1:29:59.778879000 Results averaged over 1 instances:
+1:29:59.779145000 Result: 
+	Completion Rate: 0.869
+	Average Completion Time (Seconds): 4.87
+	Average Completion Time (Steps): 2540.99
+	Average Travel Distance: 309.45427725792814
+1:29:59.779354000 
+
+1:29:59.779539000 Testing with 1200 agents
+1:29:59.779697000 
+1:29:59.779912000 Instance 0
+1:30:00.467738000 Problem Set: 
+	Number of agents: 1200
+	Shortest distance: 2.0
+	Longest distance: 236.46298679765215
+	Average distance: 93.87139225344596
+1:30:30.468702000 Result: 
+	Completion Rate: 0.77
+	Average Completion Time (Seconds): 8.099166666666667
+	Average Completion Time (Steps): 3599.415
+	Average Travel Distance: 333.7666380946809
+1:30:30.469108000 Results averaged over 1 instances:
+1:30:30.469383000 Result: 
+	Completion Rate: 0.77
+	Average Completion Time (Seconds): 8.099166666666667
+	Average Completion Time (Steps): 3599.415
+	Average Travel Distance: 333.7666380946809
+1:30:30.469641000 
+
+1:30:30.469967000 Testing with 1400 agents
+1:30:30.470199000 
+1:30:30.470566000 Instance 0
+1:30:31.382390000 Problem Set: 
+	Number of agents: 1400
+	Shortest distance: 1.0
+	Longest distance: 243.0071426749364
+	Average distance: 94.47367541920576
+1:31:01.386207000 Result: 
+	Completion Rate: 0.745
+	Average Completion Time (Seconds): 9.647142857142857
+	Average Completion Time (Steps): 5192.292857142857
+	Average Travel Distance: 342.644814369414
+1:31:01.388493000 Results averaged over 1 instances:
+1:31:01.388874000 Result: 
+	Completion Rate: 0.745
+	Average Completion Time (Seconds): 9.647142857142857
+	Average Completion Time (Steps): 5192.292857142857
+	Average Travel Distance: 342.644814369414
+1:31:01.389729000 
+
+1:31:01.390504000 Testing with 1600 agents
+1:31:01.390799000 
+1:31:01.391081000 Instance 0
+1:31:05.414187000 Problem Set: 
+	Number of agents: 1600
+	Shortest distance: 2.414213562373095
+	Longest distance: 240.55129855222071
+	Average distance: 92.2873544676777
+1:31:35.416807000 Result: 
+	Completion Rate: 0.721875
+	Average Completion Time (Seconds): 12.44
+	Average Completion Time (Steps): 2512.02375
+	Average Travel Distance: 261.55142959015825
+1:31:35.418493000 Results averaged over 1 instances:
+1:31:35.419013000 Result: 
+	Completion Rate: 0.721875
+	Average Completion Time (Seconds): 12.44
+	Average Completion Time (Steps): 2512.02375
+	Average Travel Distance: 261.55142959015825
+1:31:35.419393000 
+
+1:31:35.419710000 Testing with 1800 agents
+1:31:35.419950000 
+1:31:35.420200000 Instance 0
+1:31:36.729870000 Problem Set: 
+	Number of agents: 1800
+	Shortest distance: 1.0
+	Longest distance: 263.6223663640862
+	Average distance: 95.58298350101808
+1:32:06.730961000 Result: 
+	Completion Rate: 0.6883333333333334
+	Average Completion Time (Seconds): 11.213333333333333
+	Average Completion Time (Steps): 2753.0694444444443
+	Average Travel Distance: 203.28588103598733
+1:32:06.731356000 Results averaged over 1 instances:
+1:32:06.731561000 Result: 
+	Completion Rate: 0.6883333333333334
+	Average Completion Time (Seconds): 11.213333333333333
+	Average Completion Time (Steps): 2753.0694444444443
+	Average Travel Distance: 203.28588103598733
+1:32:06.731718000 
+
+1:32:06.731903000 Testing with 2000 agents
+1:32:06.732095000 
+1:32:06.732366000 Instance 0
+1:32:07.915641000 Problem Set: 
+	Number of agents: 2000
+	Shortest distance: 0.0
+	Longest distance: 242.56349186104046
+	Average distance: 93.98267028361373
+1:32:37.918237000 Result: 
+	Completion Rate: 0.611
+	Average Completion Time (Seconds): 13.028
+	Average Completion Time (Steps): 3090.689
+	Average Travel Distance: 181.97283247090803
+1:32:37.919680000 Results averaged over 1 instances:
+1:32:37.919937000 Result: 
+	Completion Rate: 0.611
+	Average Completion Time (Seconds): 13.028
+	Average Completion Time (Steps): 3090.689
+	Average Travel Distance: 181.97283247090803
+1:32:37.924700000 Average result over all numbers of agents: 
+1:32:37.925027000 Result: 
+	Completion Rate: 0.9096153921310172
+	Average Completion Time (Seconds): 0.4519345238095238
+	Average Completion Time (Steps): 0.4519345238095238
+	Average Travel Distance: 336.4660516170786

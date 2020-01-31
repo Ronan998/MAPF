@@ -4,7 +4,6 @@ import dataStructures.graph.Graph;
 import dataStructures.graph.Node;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -79,7 +78,7 @@ public class ProblemSet {
      * Get the longest distance of any start,target pair in the problem set
      * @return the longest distance in the problem set
      */
-    public double longestPath() {
+    public double longestPathDistance() {
         return IntStream.range(0, s.size())
                 .mapToDouble(index -> {
                     Node start = s.get(index);
@@ -91,10 +90,25 @@ public class ProblemSet {
     }
 
     /**
+     * Get the average distance of all start,target pairs in the problem set
+     * @return the average distance between all start, target pairs
+     */
+    public double averagePathDistance() {
+        return IntStream.range(0, s.size())
+                .mapToDouble(index -> {
+                    Node start = s.get(index);
+                    Node target = t.get(index);
+                    return start.octileDistance(target);
+                })
+                .average()
+                .orElseThrow(RuntimeException::new);
+    }
+
+    /**
      * Get the shortest distance between any start, target pair in the problem set
      * @return
      */
-    public double shortestPath() {
+    public double shortestPathDistance() {
         return IntStream.range(0, s.size())
                 .mapToDouble(index -> {
                     Node start = s.get(index);
@@ -151,5 +165,14 @@ public class ProblemSet {
         }
         System.out.println("s: " + startstr);
         System.out.println("t: " + targetstr);
+    }
+
+    @Override
+    public String toString() {
+        return "Problem Set: " + "\n" +
+                "\tNumber of agents: " + this.numAgents() + "\n" +
+                "\tShortest distance: " + this.shortestPathDistance() + "\n" +
+                "\tLongest distance: " + this.longestPathDistance() + "\n" +
+                "\tAverage distance: " + this.averagePathDistance();
     }
 }
