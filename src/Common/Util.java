@@ -36,17 +36,6 @@ public class Util {
         return new SimpleDateFormat(format).format(new Date());
     }
 
-    public static double completionRate(List<Agent> agents, long timeLimit) {
-        int agentsAtGoal = 0;
-        for (Agent agent : agents) {
-            if (agent.atGoal(timeLimit)) {
-                agentsAtGoal += 1;
-            }
-        }
-
-        return (double) agentsAtGoal / (double) agents.size();
-    }
-
     public static double averageDoubles(List<Double> list) {
         return list.stream()
                 .mapToDouble(num -> num)

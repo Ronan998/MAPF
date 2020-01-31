@@ -34,44 +34,6 @@ public class Result {
     //----------------------------------------------------------------------------------------------
 
     /**
-     * Average a collection of result objects into one. To conform with benchmarking done in the BMAA paper,
-     * for completionTimeSeconds, we only average result instances of up to 200 agents.
-     * @param results the results to be averaged
-     * @return the averaged result
-     */
-    public static Result averageResults(Collection<Result> results) {
-        int averageNumAgents = results.stream()
-                .mapToInt(result -> result.getNumberOfAgents())
-                .sum() / results.size();
-
-        double averageCompletionRate = results.stream()
-                .mapToDouble(result -> result.getCompletionRate())
-                .sum() / (double) results.size();
-
-        int lessThan200Agents = (int) results.stream().filter(result -> result.getNumberOfAgents() <= 200).count();
-        double averageCompletionTimeSeconds = results.stream()
-                .filter(result -> result.getNumberOfAgents() <= 200)
-                .mapToDouble(result -> result.getAverageCompletionTimeSeconds())
-                .sum() / lessThan200Agents;
-
-        // !!!!-------- TO BE DELETED
-        // Average completion time (time steps) is only averaged over runs with 200 agents
-        double averageCompletionTimeSteps = results.stream()
-                .filter(result -> result.getNumberOfAgents() <= 200)
-                .mapToDouble(result -> result.getAverageCompletionTimeSeconds())
-                .average()
-                .orElseThrow(RuntimeException::new);
-
-        double averageTravelDistance =
-                results.stream()
-                        .mapToDouble(result -> result.getAverageTravelDistance())
-                        .average()
-                        .orElseThrow(RuntimeException::new);
-
-        return new Result(averageNumAgents, averageCompletionRate, averageCompletionTimeSeconds, averageCompletionTimeSteps, averageTravelDistance);
-    }
-
-    /**
      * Average results of runs with the same number of agents in each.
      * The runs should be on the same map, with the same number of agents, the same algorithm parameters.
      * The only difference between runs is the problem set of which they represent.
@@ -119,8 +81,6 @@ public class Result {
                 averageCompletionTimeSteps,
                 averageTravelDistance);
     }
-
-
 
     /**
      * Average results of runs of an algorithm.
@@ -172,6 +132,10 @@ public class Result {
 
     //----------------------------------------------------------------------------------------------
 
+    /**
+     * Get the number of start,target pairs this problem set contains.
+     * @return an integer which is the number of start,target pairs this problem set defines.
+     */
     public int getNumberOfAgents() {
         return numberOfAgents;
     }

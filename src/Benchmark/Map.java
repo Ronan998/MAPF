@@ -33,10 +33,6 @@ public class Map {
 
     // ----------------------------------------------------------------------
 
-    public String getName() {
-        return file.getName();
-    }
-
     public Graph getGraph() {
         return graph;
     }

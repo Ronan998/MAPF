@@ -1,10 +1,10 @@
-package Common;
+package Testing;
 
-import BMAA.BMAA;
 import Benchmark.Benchmark;
 import Benchmark.Map;
 import Benchmark.Result;
 import Benchmark.ProblemSet;
+import Common.Util;
 import dataStructures.graph.Graph;
 import dataStructures.graph.Node;
 
