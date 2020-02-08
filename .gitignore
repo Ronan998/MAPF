@@ -6,3 +6,4 @@ resources
 *.scen
 *.map
 *.swp
+*.DS_Store
