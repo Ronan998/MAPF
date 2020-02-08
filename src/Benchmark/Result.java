@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Result {
+    // Time limit in seconds
+    private int timeLimit;
 
     private int numberOfAgents;
 
@@ -19,11 +21,13 @@ public class Result {
 
     private double averageTravelDistance;
 
-    public Result(int numberOfAgents,
+    public Result(int timeLimit,
+                  int numberOfAgents,
                   double completionRate,
                   double averageCompletionTimeSeconds,
                   double averageCompletionTimeSteps,
                   double averageTravelDistance) {
+        this.timeLimit = timeLimit;
         this.numberOfAgents = numberOfAgents;
         this.completionRate = completionRate;
         this.averageCompletionTimeSeconds = averageCompletionTimeSeconds;
@@ -50,6 +54,9 @@ public class Result {
             numAgents = result.getNumberOfAgents();
         }
 
+        // Time limit should be the same across all instances, so just get it from the first
+        int timeLimit = results.iterator().next().getTimeLimit();
+
         // Average completion rate over every run
         double averageCompletionRate = results.stream()
                 .mapToDouble(result -> result.getCompletionRate())
@@ -75,7 +82,9 @@ public class Result {
                 .average()
                 .orElseThrow(RuntimeException::new);
 
-        return new Result(numAgents,
+        return new Result(
+                timeLimit,
+                numAgents,
                 averageCompletionRate,
                 averageCompletionTimeSeconds,
                 averageCompletionTimeSteps,
@@ -91,6 +100,9 @@ public class Result {
      * @return the averaged result
      */
     public static Result averageDifferentAgentCountsResults(Collection<Result> results) {
+
+        // Time limit should be the same across all runs
+        int timeLimit = results.iterator().next().getTimeLimit();
 
         // Average completion rate over every run
         double averageCompletionRate = results.stream()
@@ -123,7 +135,9 @@ public class Result {
 
         // -1 number of agents because number of agents doesn't make sense in this context of averaging results
         // across different numbers of agents
-        return new Result(-1,
+        return new Result(
+                timeLimit,
+                -1,
                 averageCompletionRate,
                 averageCompletionTimeSeconds,
                 averageCompletionTimeSteps,
@@ -181,9 +195,18 @@ public class Result {
         return averageTravelDistance;
     }
 
+    /**
+     * Get the time limit that was imposed on the runtime in seconds of the algorithm.
+     * @return an int which was the time limit
+     */
+    public int getTimeLimit() {
+        return timeLimit;
+    }
+
     @Override
     public String toString() {
         return "Result: " + "\n" +
+                "\tTime Limit: " + timeLimit + "\n" +
                 "\tCompletion Rate: " + this.completionRate + "\n" +
                 "\tAverage Completion Time (Seconds): " + averageCompletionTimeSeconds + "\n" +
                 "\tAverage Completion Time (Steps): " + averageCompletionTimeSteps + "\n" +

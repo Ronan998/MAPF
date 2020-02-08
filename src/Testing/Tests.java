@@ -27,12 +27,7 @@ public class Tests {
     public static void testBMAA() {
         java.util.Map<String, Result> mapResults = new HashMap<>();
 
-        for (String mapName : List.of("maps/BGII-AR0414SR (512*512).map",
-                "maps/DAO-lak300d (747*531).map",
-                "maps/WCIII-blastedlands (512*512).map",
-                "maps/BGII-AR0701SR (512*512).map",
-                "maps/WCIII-golemsinthemist (512*512).map",
-                "maps/DAO-lak307d (84*84).map")) { //Benchmark.BMAA_TEST_MAPS) {
+        for (String mapName : List.of("maps/BGII-AR0414SR (512*512).map")) { //Benchmark.BMAA_TEST_MAPS) {
             logToFile(mapName);
             LOGGER.info("Running BMAA with parameters: expansions - 32, vision - sqrt 2, moves - 32, push - false, flow - false");
             LOGGER.info("Map: " + mapName);

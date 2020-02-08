@@ -1,12 +1,15 @@
 package BMAA;
 
 import Benchmark.Result;
-import Common.Util;
+import Visualisation.Visualisation;
 import dataStructures.graph.Graph;
 import dataStructures.graph.Node;
 
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BMAA{
 
@@ -21,9 +24,9 @@ public class BMAA{
 
     public Time time = new Time();
 
-    private long startTime;
-    private long elapsedTime;
-    private long endTime;
+    /**
+     * The time limit imposed on runtime of the algorithm, in milliSeconds
+     */
     private long timeLimit;
 
     public BMAA(Graph graph, List<Node> s, List<Node> t,
@@ -38,14 +41,37 @@ public class BMAA{
         createAgents(graph, s, t, expansions, vision, moves, push, flow);
     }
 
-    public Result run() {
-        startTime = System.currentTimeMillis();
-        timeLimit = startTime + (30 * 1000);
-        npcController();
-        endTime = System.currentTimeMillis();
-        elapsedTime = endTime - startTime;
-        return collectResults();
+    public Result runWithTimeLimit(Duration timeLimit) {
+        this.timeLimit = timeLimit.toMillis();
 
+        while (!allAgentsAtGoals() && underTimeLimit()) {
+            time.startStopWatch();
+            npcController();
+            time.stopStopWatch();
+        }
+        return collectResults();
+    }
+
+    /**
+     * Run the BMAA algorithm, but at given stop times pause the execution and gather
+     * current statistics at that time.
+     * @param stopTimes integer values which indicate the time in milli seconds at which to pause execution
+     *                  gather statistics about the progress of the run.
+     * @return a mapping of the stopping time to the results of the algorithm at that time.
+     */
+    public Map<Long, Result> runWithMultipleTimeLimits(List<Integer> stopTimes) {
+        java.util.Map<Long, Result> results = new HashMap<>();
+
+        for (int stopTime : stopTimes) {
+            this.timeLimit = stopTime;
+            time.startStopWatch();
+            while (!allAgentsAtGoals() && underTimeLimit()) {
+                npcController();
+            }
+            time.stopStopWatch();
+            results.put(timeLimit, collectResults());
+        }
+        return results;
     }
 
     private Result collectResults() {
@@ -53,7 +79,7 @@ public class BMAA{
         // Completion Rate
         int agentsAtGoal = 0;
         for (Agent agent : agents) {
-            if (agent.atGoal(timeLimit)) {
+            if (agent.atGoalBeforeTimeLimit(timeLimit)) {
                 agentsAtGoal += 1;
             }
         }
@@ -64,35 +90,33 @@ public class BMAA{
         double averageCompletionTimeSeconds =
                 agents.stream()
                 .mapToDouble(agent -> {
-                    if (agent.atGoal()) {
-                        // special case where agent started at its goal
-                        if (agent.getLastTimeAtGoal() == null) {
-                            return 0;
-                        }
-                        return Util.milliSecondsToSeconds(Util.elapsedTimeMillis(startTime, agent.getLastTimeAtGoal()));
+                    Long completionTimeSeconds = agent.getCompletionTimeSeconds(timeLimit);
+                    if (completionTimeSeconds == null) {
+                        return timeLimit;
                     }
                     else {
-                        return 30;
+                        return completionTimeSeconds;
                     }
                 })
-                .sum() / (double) agents.size();
+                .average()
+                .orElseThrow(RuntimeException::new);
 
         // Completion Time (Time steps)
         int max =
                 agents.stream()
-                .filter(agent -> agent.getCompletionTimeSteps() != null)
-                .mapToInt(agent -> agent.getCompletionTimeSteps() + 1)
+                .filter(agent -> agent.getCompletionTimeSteps(timeLimit) != null)
+                .mapToInt(agent -> agent.getCompletionTimeSteps(timeLimit))
                 .max()
                 .orElseThrow(RuntimeException::new);
 
         double averageCompletionTimeSteps =
                 agents.stream()
                 .mapToInt(agent -> {
-                    if (agent.getCompletionTimeSteps() == null) {
+                    if (agent.getCompletionTimeSteps(timeLimit) == null) {
                         return max;
                     }
                     else {
-                        return agent.getCompletionTimeSteps() + 1;
+                        return agent.getCompletionTimeSteps(timeLimit);
                     }
                 })
                 .average()
@@ -101,11 +125,13 @@ public class BMAA{
         // Travel distances
         double averageTravelDistance =
                 agents.stream()
-                .mapToDouble(agent -> agent.getTravelDistance())
+                .mapToDouble(agent -> agent.getTravelDistance(timeLimit))
                 .average()
                 .orElseThrow(RuntimeException::new);
 
-        return new Result(agents.size(),
+        return new Result(
+                (int) timeLimit,
+                agents.size(),
                 completionRate,
                 averageCompletionTimeSeconds,
                 averageCompletionTimeSteps,
@@ -127,22 +153,62 @@ public class BMAA{
      * agent to its desired node.
      *
      */
-    public void npcController() {
-        startTime = System.currentTimeMillis();
-        timeLimit = startTime + (30 * 1000);
+//    public void npcController() {
+//        startTime = System.currentTimeMillis();
+//        //timeLimit = startTime + (30 * 1000);
+//
+//        timeLimit = 5;
+//
+//        Stopwatch stopwatch = Stopwatch.createStarted();
+//
+//        while (stopwatch.elapsed(TimeUnit.SECONDS) <= 30) {
+//
+//            if (stopwatch.elapsed(TimeUnit.SECONDS) >= timeLimit) {
+//                stopwatch.stop();
+//                // Collect results
+//                Result result = collectResults();
+//                System.out.println(result);
+//                // Update time limit
+//                timeLimit += 5;
+//                stopwatch.start();
+//            }
+//
+//            boolean complete = true;
+//            for (Agent agent : agents) {
+//                if (!agent.atGoal()) {
+//                    complete = false;
+//                }
+//            }
+//            if (complete) {
+//                break;
+//            }
+//
+//            for (Agent agent : agents) {
+//                agent.searchPhase();
+//            }
+//
+//            for (Agent agent : agents) {
+//                if (agent.nextNodeIsDefined()) {
+//                    Node n = agent.getNextNode();
+//
+//                    if (PUSH && n.isOccupied() && n.getAgent().atGoal()) {
+//                        n.getAgent().push();
+//                    }
+//
+//                    if (!n.isOccupied()) {
+//                        agent.moveToNextOnPath();
+//                    }
+//                }
+//            }
+//
+//            time.increment();
+//        }
+//
+//        stopwatch.stop();
+//        Long timeTaken = stopwatch.elapsed(TimeUnit.SECONDS);
+//    }
 
-        while (System.currentTimeMillis() < timeLimit) {
-
-            boolean complete = true;
-            for (Agent agent : agents) {
-                if (!agent.atGoal()) {
-                    complete = false;
-                }
-            }
-            if (complete) {
-                break;
-            }
-
+    private void npcController() {
             for (Agent agent : agents) {
                 agent.searchPhase();
             }
@@ -161,9 +227,7 @@ public class BMAA{
                 }
             }
 
-            time.increment();
-        }
-
+            time.incrementTimeStep();
     }
 
     // ------------------------------------------------------------------------------------------
@@ -178,33 +242,25 @@ public class BMAA{
 
     // ------------------------------------------------------------------------------------------
 
-
     /**
-     * The time at which execution of the algorithm started
-     * @return the time at which the algorithm started.
+     * Returns true if all agents are at their goals, false otherwise.
+     * @return a boolean indicating if all agents are at their goals
      */
-    public long getStartTime() {
-        return startTime;
+    private boolean allAgentsAtGoals() {
+        return agents.stream()
+                .allMatch(agent -> agent.atGoalBeforeTimeLimit(timeLimit));
     }
 
     /**
-     * The amount of time which elapsed during execution of the algorithm
-     * @return the actual execution time of the algorithm
+     * Return true if the current execution time indicated by the stopwatch is under the time limit.
+     * @return a boolean indicating if execution time is under the time limit
      */
-    public long getElapsedTime() {
-        return elapsedTime;
+    private boolean underTimeLimit() {
+        return time.milliSecondsElapsed() < timeLimit;
     }
 
     /**
-     * Get the actual time at which the algorithm terminated.
-     * @return the actual time which the algorithm terminated
-     */
-    public long getEndTime() {
-        return endTime;
-    }
-
-    /**
-     * Get the System time at which the execution of the algorithm should halt.
+     * Get the time at which the execution of the algorithm should halt.
      * Due to limitation in the java language, it does not seem possible to enforce this time limit
      * such that the algorithm terminates exactly upon passing it, but we stop as soon as we can with
      * regular polling of the current time.

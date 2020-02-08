@@ -4,6 +4,7 @@ import BMAA.BMAA;
 import dataStructures.graph.Graph;
 import dataStructures.graph.Node;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ public class Benchmark {
     // -----------------------------------------------------------------------------
 
     public Result runBmaa(int expansions, double vision, int moves, boolean push, boolean flow) {
-        return new BMAA(graph, s, t, expansions, vision, moves, push, flow).run();
+        return new BMAA(graph, s, t, expansions, vision, moves, push, flow).runWithTimeLimit(Duration.ofSeconds(30));
     }
 
     // -----------------------------------------------------------------------------

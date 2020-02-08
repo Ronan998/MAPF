@@ -4,6 +4,7 @@ import dataStructures.PriorityQueue;
 import dataStructures.graph.Graph;
 import dataStructures.graph.Node;
 
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class Agent{
@@ -12,13 +13,13 @@ public class Agent{
 
     private Node start;
     private Node goal;
-    private Node current;
+    private Node currentNode;
 
-    private Node lastPosition;
-    private long lastMoveTime;
+    private Node previousNode;
+    private Long lastMoveTime;
 
-    private Long lastTimeAtGoal;
     private Integer completionTimeSteps;
+    private Long completionTimeSeconds;
     private Double travelDistance;
 
     private int expansions;
@@ -26,7 +27,7 @@ public class Agent{
     private int moves;
 
     private List<Node> pathPrefix;
-    private int currentNodeIndex;
+    private int currentPathIndex;
 
     private int limit = 0;
 
@@ -46,26 +47,32 @@ public class Agent{
 
         this.time = time;
 
-        this.lastPosition = start;
-        this.current = start;
+        this.currentNode = start;
 
         this.pathPrefix = new ArrayList<>();
-        this.pathPrefix.add(this.current);
+        this.pathPrefix.add(this.currentNode);
 
-        this.currentNodeIndex = 0;
+        this.currentPathIndex = 0;
 
-        this.lastPosition = null;
+        // Completion Time (Seconds) edge case: if the agent starts on its goal
+        // we must set its completion time (seconds) to = 0
+        // Completion Time (Time Steps) has the same edge case, so we must
+        // set its completion time (time steps) to = 0 also
+        if (this.start == this.goal) {
+            this.completionTimeSeconds = 0L;
+            this. completionTimeSteps = 0;
+        }
 
-        this.lastTimeAtGoal = null;
-        this.completionTimeSteps = null;
         this.travelDistance = 0.00;
+
+        this.lastMoveTime = 0L;
 
     }
 
     // -----------------------------------
 
     public void searchPhase() {
-        if (!nextNodeIsDefined() || time.getTime() > limit) {
+        if (!nextNodeIsDefined() || time.getTimeSteps() > limit) {
             SearchState state = search();
             PriorityQueue<Node> open = state.getOpen();
             Map<Node, Node> closed = state.getClosed();
@@ -75,7 +82,7 @@ public class Agent{
                 Node n = open.get();
                 double f = gCosts.get(n) + h(n);
                 updateHeuristicValues(closed,gCosts, f);
-                limit = time.getTime() + moves;
+                limit = time.getTimeSteps() + moves;
             }
         }
     }
@@ -86,12 +93,12 @@ public class Agent{
         Map<Node, Node> closed = new HashMap<>();
         Map<Node, Double> gCosts = new HashMap<>();
 
-        open.put(current, 0);
-        gCosts.put(current, 0.00);
+        open.put(currentNode, 0);
+        gCosts.put(currentNode, 0.00);
 
         // TODO collapse parent into open data structure?
         Map<Node, Node> parents = new HashMap<>();
-        parents.put(current, null);
+        parents.put(currentNode, null);
 
         Node n = null;
         while (!open.isEmpty()) {
@@ -148,7 +155,7 @@ public class Agent{
         newPath.add(0, x);
 
         this.pathPrefix = newPath;
-        this.currentNodeIndex = 0;
+        this.currentPathIndex = 0;
     }
 
     private void updateHeuristicValues(Map<Node, Node> closed, Map<Node, Double> gCosts, double f) {
@@ -193,29 +200,27 @@ public class Agent{
     // -----------------------------------
 
     /**
-     * Returns whether or not there exists a node on the agents prefix path
-     * after the {@code current} node.
-     * If the agent is somehow on a node that is not on our current prefix path
-     * then out next node is undefined.
-     * @return if the agent has a node to move to next
+     * Returns whether or not the node the agent will next move to is defined.
+     * An agents next node will be undefined if it has been pushed off its current path or it has reached the end of
+     * its current path.
+     * @return a boolean indicating if the agents next node is defined
      */
     public boolean nextNodeIsDefined() {
-        if (this.current == this.pathPrefix.get(this.currentNodeIndex) &&
-                this.currentNodeIndex < this.pathPrefix.size() - 1) {
+        if (this.currentNode == this.pathPrefix.get(this.currentPathIndex) &&
+                this.currentPathIndex < this.pathPrefix.size() - 1) {
             return true;
         }
         return false;
     }
 
     /**
-     * Returns the next node on the path {@code prefixPath}.
-     * It assumes that a node exists on the {@code prefixPath} that is after the current node.
-     * @return the next node on the agents {@code prefixPath}
+     * Returns the agents next node as defined in its path prefix.
+     * @return the next node on the agents path prefix
      */
     public Node getNextNode() {
-        if (this.current == this.pathPrefix.get(this.currentNodeIndex) &&
-            this.currentNodeIndex < this.pathPrefix.size() - 1) {
-            return pathPrefix.get(currentNodeIndex + 1);
+        if (this.currentNode == this.pathPrefix.get(this.currentPathIndex) &&
+            this.currentPathIndex < this.pathPrefix.size() - 1) {
+            return pathPrefix.get(currentPathIndex + 1);
         }
         return null;
     }
@@ -223,16 +228,16 @@ public class Agent{
     // -----------------------------------
 
     /**
-     * Returns the node which the agent started at.
-     * @return the starting node of the agent
+     * Returns the Node which the agent started at in the beginning of the computation.
+     * @return the Node which the agent started at
      */
     public Node getStart() {
         return start;
     }
 
     /**
-     * Returns the node which the agent is trying to compute a path to.
-     * @return the goal node of the agent
+     * Returns the Node which is the agents goal.
+     * @return the Node which is the agents goal
      */
     public Node getGoal() {
         return goal;
@@ -242,100 +247,50 @@ public class Agent{
      * Returns the node which the agent is currently occupying.
      * @return the node the agent is currently occupying
      */
-    public Node getCurrent() {
-        return current;
+    public Node getCurrentNode() {
+        return currentNode;
     }
 
     /**
-     * Get the node that the agent occupied in the previous time step
-     * @return the node it occupied in the previous time step
-     */
-    public Node getLastPosition() {
-        return lastPosition;
-    }
-
-    /**
-     * Get the system time in which the agent last moved
-     * @return the time the agent last moved
-     */
-    public long getLastMoveTime() {
-        return lastMoveTime;
-    }
-
-    /**
-     * Get the system time of which the agent last reached its goal
-     * @return the time at which the agent last entered its goal node
-     */
-    public Long getLastTimeAtGoal() {
-        return lastTimeAtGoal;
-    }
-
-    /**
-     * Return whether or not the agent currently occupies its goal location
+     * Return whether or not the agent currently occupies its goal location.
      * @return a boolean indicating if the agent is on its goal
      */
     public boolean atGoal() {
-        return current == goal;
+        return currentNode == goal;
     }
 
     /**
-     * Return whether or not the agent occupied its goal.
-     * If the last time it moved was after the time limit, then we check if its last position was it goal.
-     * @param timeLimit the time after which moves are considered invalid.
-     * @return a boolean indicating if the agent is/was at its goal.
-     */
-    public boolean atGoal(long timeLimit) {
-        if (lastMoveTime > timeLimit) {
-            return getLastPosition() == getGoal();
-        }
-        else {
-            return getCurrent() == getGoal();
-        }
-    }
-
-    /**
-     * Update the agents {@code current} node to be the next node it should move to
-     * according to {@code pathPrefix}. It assumes that the next node it will move
-     * to is clear of any obstacles.
+     * Update the agents state to reflect that it has moved between nodes.
      */
     public void moveToNextOnPath() {
-        this.lastMoveTime = System.currentTimeMillis();
-        this.lastPosition = this.current;
+        updateMetrics(this.pathPrefix.get(currentPathIndex + 1));
 
-        this.current.leave();
-        this.currentNodeIndex += 1;
-        this.current = this.pathPrefix.get(currentNodeIndex);
-        this.current.enter(this);
-        updateCompletionTimeSeconds();
-        updateCompletionTimeSteps();
-        double cost = graph.getEdge(lastPosition, current).getWeight();
-        updateTravelDistance(cost);
+        this.currentNode.leave();
+        this.currentPathIndex += 1;
+        this.currentNode = this.pathPrefix.get(currentPathIndex);
+        this.currentNode.enter(this);
     }
 
     /**
      * Move to adjacent node which is not the next node according to the current prefix path.
-     * @param node the node to move to.
+     * @param node the node to move to
      */
     private void moveTo(Node node){
-        this.lastMoveTime = System.currentTimeMillis();
-        this.lastPosition = this.current;
-        this.current.leave();
-        this.current = node;
-        this.current.enter(this);
-        updateCompletionTimeSeconds();
-        updateCompletionTimeSteps();
-        double cost = graph.getEdge(lastPosition, current).getWeight();
-        updateTravelDistance(cost);
+        updateMetrics(node);
+
+        this.currentNode.leave();
+        this.currentNode = node;
+        this.currentNode.enter(this);
     }
 
     /**
-     * Move the any neighbouring node in the graph.
-     * Should only be called if the agent is in its goal node.
+     * Move to any neighbouring node of the agents current node in the graph.
+     * According to the BMAA algorithm, this method will only be called if the agent is in its goal node.
      *
      * @return the node it has been pushed to.
      */
     public Node push() {
-        Set<Node> adjacentNodes = this.graph.getNeigbours(current);
+        Set<Node> adjacentNodes = this.graph.getNeigbours(currentNode);
 
         for (Node node : adjacentNodes) {
             if (!node.isOccupied()) {
@@ -350,54 +305,129 @@ public class Agent{
     // ----------------------------------------------------------------------
 
     /**
-     * If the agent is at its goal, update the completion time in seconds to reflect this
+     * Update the part of the agents state used for recording performance measures.
+     *
+     * @param nextNode the node the agent will move to next
      */
-    private void updateCompletionTimeSeconds() {
-        if (this.current == this.goal) {
-            this.lastTimeAtGoal = System.currentTimeMillis();
+    private void updateMetrics(Node nextNode) {
+        // Metrics for completion rate
+        this.previousNode = this.currentNode;
+        this.lastMoveTime = this.time.milliSecondsElapsed();
+
+        // Completion Time (Seconds) and Completion Time (Time-Steps)
+        if (nextNode == goal) {
+            this.completionTimeSeconds = this.time.milliSecondsElapsed();
+            this.completionTimeSteps = this.time.getTimeSteps();
         }
+
+        // Travel distance
+        this.travelDistance += graph.getEdge(this.currentNode, nextNode).getWeight();
     }
 
     /**
-     * Update the completion time (time steps) of the agent.
-     * If the agent is not at its goal, its completion time (time steps is undefined)
+     * Determine if the agent was at its goal before a given time limit.
+     * @param timeLimit the time after which we should consider a move to be invalid
+     * @return a boolean indicating if the agent was at its goal
      */
-    private void updateCompletionTimeSteps() {
-        if (this.current == goal) {
-            this.completionTimeSteps = time.getTime();
+    public boolean atGoalBeforeTimeLimit(long timeLimit) {
+        // Special case where the agent never moved
+        if (previousNode == null) {
+            return this.currentNode == this.goal;
+        }
+        // Otherwise compare the node against the agents correct position according to the time limit
+        if (lastMoveTime < timeLimit) {
+            return this.currentNode == this.goal;
         }
         else {
-            this.completionTimeSteps = null;
+            return this.previousNode == this.goal;
         }
     }
 
     /**
-     * Get the time step at which the agent reached its goal.
-     * If the agent is not currently on its goal, then the completion time (time steps) is undefined (null)
-     * We must add 1 to the return value because time steps begin at 0.
-     * If by chance the agent starts on its goal, its completionTime will be
-     * @return the time step at which the agent reached its goal.
+     * Get the completion time (seconds) for the agent.
+     *
+     * Completion time (seconds) will be undefined if the agent is not at its goal. We return null in this case.
+     *
+     * Because we can only poll for exit after looping through all the agents in the BMAA npc-controller,
+     * we have to take into account that an agent may have executed its move after the time limit.
+     * If this is the case, we must determine completion time (seconds) for the agent's previous position.
+     *
+     * @param timeLimit the time after which moves are considered invalid
+     * @return an Long value which is the agents completion time (seconds)
      */
-    public Integer getCompletionTimeSteps() {
-        return completionTimeSteps;
+    public Long getCompletionTimeSeconds(long timeLimit) {
+        if (lastMoveTime < timeLimit) {
+            if (this.currentNode == this.goal) {
+                return this.completionTimeSeconds;
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            if (this.previousNode == this.goal) {
+                return completionTimeSeconds;
+            }
+            else {
+                return null;
+            }
+        }
     }
 
     /**
-     * Add the cost of the edge just traversed to the agents travel distance.
-     * This method should be called every time the agent moves.
+     * Get the completion time (time steps) for the agent.
+     *
+     * Completion time (time steps) will be undefined if the agent is not at its goal. We return null in this case.
+     *
+     * Because we can only poll for exit after looping through all the agents in the BMAA npc-controller,
+     * we have to take into account that an agent may have executed its move after the time limit.
+     * If this is the case, we must determine completion time (time steps) for the agent's previous position.
+     *
+     * @param timeLimit the time after which moves are considered invalid
+     * @return an Integer value which is the agents completion time (time steps)
      */
-    private void updateTravelDistance(double cost) {
-        this.travelDistance += cost;
+    public Integer getCompletionTimeSteps(long timeLimit) {
+        if (lastMoveTime < timeLimit) {
+            if (this.currentNode == this.goal) {
+                return this.completionTimeSteps + 1;
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            if (this.previousNode == this.goal) {
+                return completionTimeSteps + 1;
+            }
+            else {
+                return null;
+            }
+        }
     }
 
     /**
-     * Get the travel distance of the agent.
-     * Travel distance is defined as the sum of costs of the edges traversed by the agent.
+     * Return the travel distance of the agent.
+     *
+     * The travel distance is defined as the total sum of all edge costs which were traversed by the agent.
+     *
+     * Because we can only poll for exit after looping through all the agents in the BMAA npc-controller,
+     * we have to take into account that an agent may have executed its move after the time limit.
+     * If this is the case, we must determine travel distance for the agent's previous position by subtracting
+     * the cost of the last edge traversed by the agent.
+     *
+     * @param timeLimit the time after which agent moves are considered invalid
      * @return a double which is the agents travel distance
      */
-    public Double getTravelDistance() {
-        return travelDistance;
+    public double getTravelDistance(long timeLimit) {
+        if (lastMoveTime < timeLimit) {
+            return this.travelDistance;
+        }
+        else {
+            double invalidMoveCost = graph.getEdge(this.currentNode, this.previousNode).getWeight();
+            return travelDistance - invalidMoveCost;
+        }
     }
+
 
     /**
      * Print a summary of the agents current state
@@ -410,11 +440,11 @@ public class Agent{
         }
         return "Agent" + "\n" +
                 "----------------" + "\n" +
-                "Current Node: " + current + "\n" +
+                "Current Node: " + currentNode + "\n" +
                 "Starting Node: " + start + "\n" +
                 "Goal Node: " + goal +  "\n" +
                 "Path: " + pathStr +  "\n" +
-                "Time: " + time.getTime();
+                "Time: " + time.getTimeSteps();
 
     }
 

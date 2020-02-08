@@ -2,11 +2,33 @@ package Common;
 
 import BMAA.Agent;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Util {
+
+    public static FileHandler startLoggingToFile(Logger logger, String fileName) {
+        try {
+            FileHandler fh = new FileHandler(fileName);
+            SimpleFormatter simpleFormatter = new SimpleFormatter();
+            fh.setFormatter(simpleFormatter);
+            logger.addHandler(fh);
+            return fh;
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void stopLoggingToFile(Logger logger, FileHandler fileHandler) {
+        logger.removeHandler(fileHandler);
+    }
 
     /**
      * Convert milliseconds to seconds
