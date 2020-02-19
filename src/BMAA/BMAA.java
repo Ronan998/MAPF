@@ -4,6 +4,7 @@ import Benchmark.Result;
 import Visualisation.Visualisation;
 import dataStructures.graph.Graph;
 import dataStructures.graph.Node;
+import Error.NoAgentAtGoalException;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -12,6 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 public class BMAA{
+
+    public static final int DEFAULT_EXPANSIONS = 32;
+    public static final double DEFAULT_VISION = Math.sqrt(2);
+    public static final int DEFAULT_MOVES = 32;
+
 
     private final int EXPANSIONS;
     private final double VISION;
@@ -59,8 +65,8 @@ public class BMAA{
      *                  gather statistics about the progress of the run.
      * @return a mapping of the stopping time to the results of the algorithm at that time.
      */
-    public Map<Long, Result> runWithMultipleTimeLimits(List<Integer> stopTimes) {
-        java.util.Map<Long, Result> results = new HashMap<>();
+    public List<Result> runWithMultipleTimeLimits(List<Integer> stopTimes) {
+        List<Result> results = new ArrayList<>();
 
         for (int stopTime : stopTimes) {
             this.timeLimit = stopTime;
@@ -69,7 +75,12 @@ public class BMAA{
                 npcController();
             }
             time.stopStopWatch();
-            results.put(timeLimit, collectResults());
+            try {
+                results.add(collectResults());
+            } catch (NoAgentAtGoalException e) {
+                e.printStackTrace();
+                System.out.println("Skipping " + stopTime + "ms timelimit");
+            }
         }
         return results;
     }
@@ -107,7 +118,10 @@ public class BMAA{
                 .filter(agent -> agent.getCompletionTimeSteps(timeLimit) != null)
                 .mapToInt(agent -> agent.getCompletionTimeSteps(timeLimit))
                 .max()
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> {
+                    System.out.println("Error: Completion rate: " + completionRate);
+                    return new NoAgentAtGoalException("For " + this.agents.size() + "agents with time limit of " + timeLimit);
+                });
 
         double averageCompletionTimeSteps =
                 agents.stream()
@@ -209,25 +223,25 @@ public class BMAA{
 //    }
 
     private void npcController() {
-            for (Agent agent : agents) {
-                agent.searchPhase();
-            }
+        for (Agent agent : agents) {
+            agent.searchPhase();
+        }
 
-            for (Agent agent : agents) {
-                if (agent.nextNodeIsDefined()) {
-                    Node n = agent.getNextNode();
+        for (Agent agent : agents) {
+            if (agent.nextNodeIsDefined()) {
+                Node n = agent.getNextNode();
 
-                    if (PUSH && n.isOccupied() && n.getAgent().atGoal()) {
-                        n.getAgent().push();
-                    }
+                if (PUSH && n.isOccupied() && n.getAgent().atGoal()) {
+                    n.getAgent().push();
+                }
 
-                    if (!n.isOccupied()) {
-                        agent.moveToNextOnPath();
-                    }
+                if (!n.isOccupied()) {
+                    agent.moveToNextOnPath();
                 }
             }
+        }
 
-            time.incrementTimeStep();
+        time.incrementTimeStep();
     }
 
     // ------------------------------------------------------------------------------------------

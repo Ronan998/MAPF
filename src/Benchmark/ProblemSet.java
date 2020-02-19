@@ -167,6 +167,25 @@ public class ProblemSet {
         System.out.println("t: " + targetstr);
     }
 
+    public static String csvHeader() {
+        return "num_agents" + "," +
+                "longest_path_length" + "," +
+                "shortest_path_length" + "," +
+                "average_path_length";
+
+    }
+
+    /**
+     * Return statistics about this problem set in a csv format.
+     * @return a string of statistics of this problem set in csv format
+     */
+    public String csvStatistics() {
+        return this.numAgents() + "," +
+                this.longestPathDistance() + "," +
+                this.shortestPathDistance() + "," +
+                this.averagePathDistance();
+    }
+
     @Override
     public String toString() {
         return "Problem Set: " + "\n" +

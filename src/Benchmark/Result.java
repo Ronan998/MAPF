@@ -207,10 +207,35 @@ public class Result {
     public String toString() {
         return "Result: " + "\n" +
                 "\tTime Limit: " + timeLimit + "\n" +
+                "\tNumber of Agents: " + numberOfAgents + "\n" +
                 "\tCompletion Rate: " + this.completionRate + "\n" +
                 "\tAverage Completion Time (Seconds): " + averageCompletionTimeSeconds + "\n" +
                 "\tAverage Completion Time (Steps): " + averageCompletionTimeSteps + "\n" +
                 "\tAverage Travel Distance: " + averageTravelDistance;
 
+    }
+
+
+    public static String csvHeaders() {
+        return "num_agents," +
+                "time_limit," +
+                "completion_rate," +
+                "average_completion_time_seconds," +
+                "average_completion_time_steps," +
+                "average_travel_distance";
+    }
+
+    /**
+     * Returns a representation of the results in a csv format.
+     * Format: num_agents, runtime_limit, completion_rate, completion_time_seconds, completion_time_steps, travel_distance
+     * @return a csv string representation of the object
+     */
+    public String toCsvString() {
+        return this.numberOfAgents + "," +
+                this.timeLimit + "," +
+                this.completionRate + "," +
+                this.averageCompletionTimeSeconds + "," +
+                this.averageCompletionTimeSteps + "," +
+                this.averageTravelDistance;
     }
 }

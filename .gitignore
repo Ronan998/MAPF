@@ -7,3 +7,5 @@ resources
 *.map
 *.swp
 *.DS_Store
+logs
+src/META-INF
