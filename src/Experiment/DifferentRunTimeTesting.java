@@ -22,9 +22,7 @@ import java.util.stream.Collectors;
 public class DifferentRunTimeTesting {
 
     public static List<Integer> timeLimits =
-            List.of(100, 150,200,
-                    250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,
-                    1000, 1250, 1500, 1750,
+            List.of(1000, 1250, 1500, 1750,
                     2000, 2250, 2500, 2750,
                     3000, 3250, 3500, 3750,
                     4000, 4250, 4500, 4750,
@@ -105,7 +103,7 @@ public class DifferentRunTimeTesting {
                     mapPath.replaceAll("maps/", "")
                     .replaceAll(".map", "")
                     .replaceAll(" ", "_") + ".csv";
-            Path file = Path.of("logs/XXdetail_" + fileName);
+            Path file = Path.of("logs/detail_" + fileName);
             writeToFile(file, List.of(Result.csvHeaders()),
                     grouped.entrySet().stream().flatMap(entry -> entry.getValue().stream())
                             .map(Result::toCsvString)
@@ -118,7 +116,7 @@ public class DifferentRunTimeTesting {
             }
 
             // At the end we have a result for each time limit averaged across different agent counts
-            file = Path.of("logs/XX§averaged_" + fileName);
+            file = Path.of("logs/averaged_" + fileName);
             writeToFile(file,
                     List.of(Result.csvHeaders()),
                     averaged.stream()
