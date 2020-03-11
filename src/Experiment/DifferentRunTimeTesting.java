@@ -4,15 +4,11 @@ import BMAA.BMAA;
 import Benchmark.Benchmark;
 import Benchmark.Result;
 import Benchmark.ProblemSet;
-import Benchmark.Map;
+import Benchmark.ProblemMap;
 import dataStructures.graph.Graph;
 
-import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -136,7 +132,7 @@ public class DifferentRunTimeTesting {
 
         for (int i = 0; i < 1; i++) {
 
-            Graph graph = Map.graphFromMap(mapPath);
+            Graph graph = ProblemMap.graphFromMap(mapPath);
             ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
 
             List<Result> results = new BMAA(graph,

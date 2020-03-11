@@ -4,9 +4,8 @@ import BMAA.BMAA;
 import BMAA.Agent;
 import BMAA.Time;
 import Benchmark.Benchmark;
-import Benchmark.Map;
+import Benchmark.ProblemMap;
 import Benchmark.ProblemSet;
-import Benchmark.Result;
 import com.google.common.base.Stopwatch;
 import dataStructures.graph.Graph;
 import dataStructures.graph.Node;
@@ -61,7 +60,7 @@ public class ComparisonTesting {
                 List<Duration> decompTimes = new ArrayList<>();
 
                 for (int i = 0; i < 10; i++) {
-                    Graph graph = Map.graphFromMap(map);
+                    Graph graph = ProblemMap.graphFromMap(map);
                     ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
                     List<Agent> agents = createAgents(graph, problemSet.getS(), problemSet.getT());
 

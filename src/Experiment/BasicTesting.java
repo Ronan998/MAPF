@@ -2,7 +2,7 @@ package Experiment;
 
 import BMAA.BMAA;
 import Benchmark.Benchmark;
-import Benchmark.Map;
+import Benchmark.ProblemMap;
 import Benchmark.ProblemSet;
 import com.google.common.base.Stopwatch;
 import dataStructures.graph.Graph;
@@ -25,7 +25,7 @@ public class BasicTesting {
      */
     public static void experiment1() {
         String map = "maps/WCIII-blastedlands (512*512).map";
-        Graph graph = Map.graphFromMap(map);
+        Graph graph = ProblemMap.graphFromMap(map);
         ProblemSet problemSet = ProblemSet.randomProblemSet(graph, 100);
         System.out.println(problemSet);
         problemSet.printST();
@@ -61,7 +61,7 @@ public class BasicTesting {
         List<ProblemSet> problemSets = new ArrayList<>();
 
         for (int i=0; i<10; i++) {
-            Graph graph = Map.graphFromMap(map);
+            Graph graph = ProblemMap.graphFromMap(map);
             ProblemSet problemSet = ProblemSet.randomProblemSet(graph, 500);
 
             Stopwatch stopwatch = Stopwatch.createStarted();
@@ -120,7 +120,7 @@ public class BasicTesting {
             List<Result> instanceResults = new ArrayList<>();
 
             for (int i=0; i<10; i++) {
-                Graph graph = Map.graphFromMap(map);
+                Graph graph = ProblemMap.graphFromMap(map);
                 ProblemSet problemSet = ProblemSet.randomProblemSet(graph, n);
 
                 Result result = new BMAA(graph,

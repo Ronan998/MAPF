@@ -1,7 +1,7 @@
 package Experiment;
 
 import Benchmark.Benchmark;
-import Benchmark.Map;
+import Benchmark.ProblemMap;
 import Benchmark.Result;
 import Benchmark.ProblemSet;
 import Common.Util;
@@ -43,7 +43,7 @@ public class Tests {
                 for (int i=0; i<INSTANCES_PER_AGENT_COUNT; i++) {
                     LOGGER.info("");
                     LOGGER.info("Instance " + i);
-                    Graph graph = Map.graphFromMap(mapName);
+                    Graph graph = ProblemMap.graphFromMap(mapName);
 
                     ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
                     LOGGER.info(problemSet.toString());
@@ -104,7 +104,7 @@ public class Tests {
     }
 
     public static void simpleTest() {
-        Graph graph = Map.graphFromMap("maps/simpleGrid.map");
+        Graph graph = ProblemMap.graphFromMap("maps/simpleGrid.map");
 
         ProblemSet problemSet = ProblemSet.randomProblemSet(graph, 1);
         problemSet.printST();
