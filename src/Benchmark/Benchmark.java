@@ -28,21 +28,11 @@ public class Benchmark {
                     "maps/DAO-lak307d (84*84).map",
                     "maps/DAO-lgt300d (747*531).map");
 
-    private Graph graph;
-    private List<Node> s;
-    private List<Node> t;
 
-    public Benchmark(Graph graph, List<Node> s, List<Node> t) {
-        this.graph = graph;
-        this.s = s;
-        this.t = t;
+    /**
+     * Private constructor so no one can instantiate this  class
+     */
+    private Benchmark() {
     }
 
-    // -----------------------------------------------------------------------------
-
-    public Result runBmaa(int expansions, double vision, int moves, boolean push, boolean flow) {
-        return new BMAA(graph, s, t, expansions, vision, moves, push, flow).runWithTimeLimit(Duration.ofSeconds(30));
-    }
-
-    // -----------------------------------------------------------------------------
 }
