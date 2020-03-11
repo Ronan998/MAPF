@@ -50,6 +50,8 @@ public class BMAA{
     public Result runWithTimeLimit(Duration timeLimit) {
         this.timeLimit = timeLimit.toMillis();
 
+        for (Agent a : agents) a.init();
+        System.out.println("Finished computing full paths and decomposing");
         while (!allAgentsAtGoals() && underTimeLimit()) {
             time.startStopWatch();
             npcController();
@@ -67,6 +69,8 @@ public class BMAA{
      */
     public List<Result> runWithMultipleTimeLimits(List<Integer> stopTimes) {
         List<Result> results = new ArrayList<>();
+
+        for (Agent agent : agents) agent.init();
 
         for (int stopTime : stopTimes) {
             this.timeLimit = stopTime;
@@ -250,7 +254,7 @@ public class BMAA{
                                      int expansions, double vision, int moves, boolean push, boolean flow) {
         agents = new ArrayList<>();
         for (int i=0; i<s.size(); i++) {
-           agents.add(new Agent(graph, s.get(i), t.get(i), expansions, vision, moves, time));
+           agents.add(new Agent(graph, s.get(i), t.get(i), expansions, vision, moves, time, 10*Math.sqrt(2)));
         }
     }
 

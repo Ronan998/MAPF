@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class BasicTesting {
 
     public static void main(String[] args) {
-        experiment3();
+        experiment1();
     }
 
     /**
@@ -24,10 +24,11 @@ public class BasicTesting {
      * works.
      */
     public static void experiment1() {
-        String map = "maps/BGII-AR0504SR (512*512).map";
+        String map = "maps/WCIII-blastedlands (512*512).map";
         Graph graph = Map.graphFromMap(map);
-        ProblemSet problemSet = ProblemSet.randomProblemSet(graph, 2000);
+        ProblemSet problemSet = ProblemSet.randomProblemSet(graph, 100);
         System.out.println(problemSet);
+        problemSet.printST();
 
         System.out.println();
         System.out.println("Beginning execution");
@@ -40,7 +41,7 @@ public class BasicTesting {
                 BMAA.DEFAULT_VISION,
                 BMAA.DEFAULT_MOVES,
                 false,
-                false).runWithTimeLimit(Duration.ofSeconds(30));
+                false).runWithTimeLimit(Duration.ofSeconds(5));
         stopwatch.stop();
         Long end = System.currentTimeMillis();
         System.out.println("Finished execution");

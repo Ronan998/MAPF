@@ -33,10 +33,16 @@ public class Agent{
 
     private Time time;
 
+    private List<Node> waypoints;
+    private int currentWaypointIndex;
+
+    private int waypointSpacing;
+    private double closeness;
+
     private HashMap<Node, Double> heuristics = new HashMap<>();
 
     public Agent(Graph graph, Node start, Node goal,
-                 int expansions, double vision, int moves, Time time) {
+                 int expansions, double vision, int moves, Time time, double closeness) {
         this.graph = graph;
         this.start = start;
         this.goal = goal;
@@ -67,6 +73,7 @@ public class Agent{
 
         this.lastMoveTime = 0L;
 
+        this.closeness = closeness;
     }
 
     // -----------------------------------
@@ -88,6 +95,7 @@ public class Agent{
     }
 
     private SearchState search() {
+        List<Node> paths = new ArrayList<>();
         int exp = 0;
         PriorityQueue<Node> open = new PriorityQueue<>();
         Map<Node, Node> closed = new HashMap<>();
@@ -106,8 +114,34 @@ public class Agent{
             closed.put(n, parents.get(n));
 
             if (n == goal || exp > expansions) {
-                buildPath(closed, n);
+                List<Node> p = constructPath(closed, n);
+                paths.addAll(p);
+
+                this.pathPrefix = paths;
+                this.currentPathIndex = 0;
                 return new SearchState(open, closed, gCosts);
+            }
+
+            if (currentWaypoint() != goal) {
+                if (n.octileDistance(currentWaypoint()) <= closeness) {
+                    List<Node> p = constructPath(closed, n);
+                    paths.addAll(p);
+                    nextWaypoint();
+                    open = new PriorityQueue<>();
+                    closed = new HashMap<>();
+                    gCosts = new HashMap<>();
+                    parents = new HashMap<>();
+                    this.heuristics = new HashMap<>();
+
+                    // Chosee your next starting position for the next sub path to the next waypoint, and continue the search from there
+                    for (Node neighbour : graph.getNeigbours(n)) {
+                        double gCost = graph.getEdge(n, neighbour).getWeight();
+                        open.put(neighbour, h(neighbour) + gCost);
+                        gCosts.put(neighbour, gCost);
+                        parents.put(neighbour, null);
+                    }
+                    continue;
+                }
             }
 
             for (Node neighbour : graph.getNeigbours(n)) {
@@ -168,7 +202,7 @@ public class Agent{
         if (heuristics.containsKey(n)) {
             return heuristics.get(n);
         }
-        double h = n.octileDistance(goal);
+        double h = n.octileDistance(currentWaypoint());
         heuristics.put(n, h);
         return h;
     }
@@ -222,7 +256,7 @@ public class Agent{
             this.currentPathIndex < this.pathPrefix.size() - 1) {
             return pathPrefix.get(currentPathIndex + 1);
         }
-        return null;
+        throw new RuntimeException("Call to retrieve the next node but the next node was undefined");
     }
 
     // -----------------------------------
@@ -428,6 +462,157 @@ public class Agent{
         }
     }
 
+    // --------------------------------------------------------------------------------
+
+    /**
+     * Find the full path to the goal and reduce it to a set of waypoints the agent will follow.
+     * Initiate the agents state to use the first waypoint.
+     */
+    public void init() {
+        List<Node> fullPath = computeFullPath();
+        this.waypointSpacing = (int) Math.ceil(Math.sqrt(fullPath.size()));
+        waypoints = reduceToWaypoints(fullPath);
+        this.currentWaypointIndex = 0;
+    }
+
+    /**
+     * Tell the agent to focus on finding a path towards the next waypoint
+     */
+    private void nextWaypoint() {
+        this.currentWaypointIndex += 1;
+        if (currentWaypoint() == goal) {
+            closeness = 0;
+        }
+    }
+
+    private Node currentWaypoint() {
+        return this.waypoints.get(currentWaypointIndex);
+    }
+
+    /**
+     * Use the A* algorithm to compute a full path from the current position to the
+     * goal position.
+     * @return a path of nodes that will lead to the goal
+     */
+    public List<Node> computeFullPath() {
+        Node start = this.start;
+        Node goal = this.goal;
+
+        PriorityQueue<Node> open = new PriorityQueue<>();
+        Map<Node, Node> closed = new HashMap<>();
+        Map<Node, Double> gCosts = new HashMap<>();
+
+        open.put(currentNode, 0);
+        gCosts.put(currentNode, 0.00);
+
+        Map<Node, Node> parents = new HashMap<>();
+        parents.put(currentNode, null);
+
+        Node n = null;
+        while (!open.isEmpty()) {
+            n = open.get();
+            closed.put(n, parents.get(n));
+
+            if (n == goal) {
+                return constructPath(closed, n);
+            }
+
+            for (Node neighbour : graph.getNeigbours(n)) {
+                double distance = n.euclideanDistance(neighbour);
+
+//                if ((neighbour.isOccupied() && (neighbour != goal)) && distance < vision) {
+//                    continue;
+//                }
+
+                if (!closed.containsKey(neighbour)) {
+                    if (open.contains(neighbour)) {
+                        double gCostOnRecord = gCosts.get(neighbour);
+                        double newGCost = gCosts.get(n) + graph.getEdge(n, neighbour).getWeight();
+
+                        if (newGCost < gCostOnRecord) {
+                            open.update(neighbour, newGCost + neighbour.octileDistance(goal));
+                            parents.replace(neighbour, n);
+                            gCosts.replace(neighbour, newGCost);
+                        }
+                    }
+                    else {
+                        double g = gCosts.get(n) + graph.getEdge(n, neighbour).getWeight();
+
+                        open.put(neighbour, g + neighbour.octileDistance(goal));
+                        parents.put(neighbour, n);
+                        gCosts.put(neighbour, g);
+                    }
+                }
+            }
+        }
+
+        throw new RuntimeException("Goal is not reachable for agent with starting position " + start + " and goal position " + goal);
+    }
+
+    /**
+     * Construct a path to a specified node n using a mapping from nodes to parent nodes on the path.
+     * @param parents a mapping from nodes to their parents nodes on the path
+     * @param target the node to compute a path to
+     * @return an ordered list of nodes which is the path to the target node
+     */
+    private List<Node> constructPath(Map<Node, Node> parents, Node target) {
+        List<Node> path = new ArrayList<>();
+        Node n = target;
+        Node parent = parents.get(n);
+        while (parent != null) {
+            path.add(0, n);
+            n = parent;
+            parent = parents.get(n);
+        }
+        path.add(0, n);
+        for (Node element : path) {
+            if (element == null) {
+                for (Node e : path) System.out.println(e);
+                System.exit(1);
+            }
+        }
+        return path;
+    }
+
+    /**
+     * From a full path, reduce it to a list of node which act as intermediate goals to the primary end goal.
+     * The ordering of these nodes will be the same as they appear in the full path.
+     * @param path the full path to the end goal
+     * @return a list containing a subset of nodes of the input
+     */
+    private List<Node> reduceToWaypoints(List<Node> path) {
+        List<Node> waypoints = new ArrayList<>();
+
+        int fullLength = path.size();
+
+        int index = waypointSpacing;
+        while (index < fullLength - 1) {
+            waypoints.add(path.get(index));
+            index += waypointSpacing;
+        }
+        waypoints.add(path.get(fullLength - 1));
+
+        return waypoints;
+    }
+
+    /**
+     * Decompose a list of sequential values into a list of fewer values, preserving the order of the original list
+     * @param list the list to reduce to fewer elements
+     * @param spacing the desired spacing between chosen elements
+     * @param <T> The type of element the list contains
+     * @return a decomposed list
+     */
+    public static <T> List<T> reduceToWaypoints(List<T> list, int spacing) {
+        List<T> waypoints = new ArrayList<>();
+
+        for (int i=0;i<list.size() - 1; i++) {
+            waypoints.add(list.get(i));
+            i += spacing;
+        }
+        // Always add the last element (the goal) as a waypoint
+        waypoints.add(list.get(list.size() - 1));
+        return waypoints;
+    }
 
     /**
      * Print a summary of the agents current state

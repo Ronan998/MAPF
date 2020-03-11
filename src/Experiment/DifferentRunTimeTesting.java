@@ -134,7 +134,7 @@ public class DifferentRunTimeTesting {
         // ------------------------------------------------
         List<List<Result>> instanceResults = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
 
             Graph graph = Map.graphFromMap(mapPath);
             ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
