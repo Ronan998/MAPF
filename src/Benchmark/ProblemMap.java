@@ -10,6 +10,9 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class to construct a graph object from a MAPF map file.
+ */
 public class ProblemMap {
 
     private static final java.util.Map<Character, String> passableTerrains =

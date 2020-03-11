@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+/**
+ * A file to represent a MAPF problem.
+ */
 public class ProblemSet {
 
     private Graph graph;

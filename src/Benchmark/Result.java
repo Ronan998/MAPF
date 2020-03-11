@@ -7,6 +7,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Class to represent the results of running an MAPF algorithm.
+ */
+
 public class Result {
     // Time limit in seconds
     private int timeLimit;
