@@ -1,6 +1,4 @@
-package dataStructures;
-
-import dataStructures.graph.Node;
+package DataStructures;
 
 import java.util.HashMap;
 import java.util.Map;

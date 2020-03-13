@@ -1,14 +1,6 @@
 package Benchmark;
 
-import BMAA.BMAA;
-import dataStructures.graph.Graph;
-import dataStructures.graph.Node;
-
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Utility class to hold information relating to benchmarks

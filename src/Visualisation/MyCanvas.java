@@ -1,8 +1,8 @@
 package Visualisation;
 
-import BMAA.Agent;
-import dataStructures.graph.Graph;
-import dataStructures.graph.Node;
+import Algorithm.BMAA.BmaaAgent;
+import DataStructures.graph.Graph;
+import DataStructures.graph.Node;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,9 +15,9 @@ class MyCanvas extends JPanel {
     private static final int pointSize = 1;
 
     private Graph graph;
-    private List<Agent> agents;
+    private List<BmaaAgent> agents;
 
-    public MyCanvas(Graph graph, List<Agent> agents) {
+    public MyCanvas(Graph graph, List<BmaaAgent> agents) {
         this.graph = graph;
         this.agents = agents;
         //this.setDoubleBuffered(false);
@@ -28,12 +28,12 @@ class MyCanvas extends JPanel {
         for (Node node : graph.nodes()) {
             paintNode(g, node);
         }
-        for (Agent agent : agents) {
+        for (BmaaAgent agent : agents) {
             paintAgent(g, agent);
         }
     }
 
-    public static void paintAgent(Graphics g, Agent agent) {
+    public static void paintAgent(Graphics g, BmaaAgent agent) {
         if (agent.atGoal()) {
             g.setColor(Color.GREEN);
         }

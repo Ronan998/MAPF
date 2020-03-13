@@ -1,12 +1,10 @@
 package Benchmark;
 
-import dataStructures.PriorityQueue;
-import dataStructures.graph.Graph;
-import dataStructures.graph.Node;
+import DataStructures.graph.Graph;
+import DataStructures.graph.Node;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 

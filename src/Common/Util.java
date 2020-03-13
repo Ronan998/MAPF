@@ -1,13 +1,10 @@
 package Common;
 
-import BMAA.Agent;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 

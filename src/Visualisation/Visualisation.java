@@ -1,11 +1,9 @@
 package Visualisation;
 
-import BMAA.Agent;
-import dataStructures.graph.Graph;
-import dataStructures.graph.Node;
+import Algorithm.BMAA.BmaaAgent;
+import DataStructures.graph.Graph;
 
 import javax.swing.*;
-import java.awt.*;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ public class Visualisation{
 
     MyCanvas canvas;
 
-    public Visualisation(Graph graph, List<Agent> agents) {
+    public Visualisation(Graph graph, List<BmaaAgent> agents) {
         JFrame frame = new JFrame("Visualisation");
         canvas = new MyCanvas(graph, agents);
         canvas.setSize(400,400);

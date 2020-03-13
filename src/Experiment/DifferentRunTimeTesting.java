@@ -1,11 +1,11 @@
 package Experiment;
 
-import BMAA.BMAA;
+import Algorithm.BMAA.Bmaa;
 import Benchmark.Benchmark;
 import Benchmark.Result;
 import Benchmark.ProblemSet;
 import Benchmark.ProblemMap;
-import dataStructures.graph.Graph;
+import DataStructures.graph.Graph;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -135,12 +135,12 @@ public class DifferentRunTimeTesting {
             Graph graph = ProblemMap.graphFromMap(mapPath);
             ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
 
-            List<Result> results = new BMAA(graph,
+            List<Result> results = new Bmaa(graph,
                     problemSet.getS(),
                     problemSet.getT(),
-                    BMAA.DEFAULT_EXPANSIONS,
-                    BMAA.DEFAULT_VISION,
-                    BMAA.DEFAULT_MOVES,
+                    Bmaa.DEFAULT_EXPANSIONS,
+                    Bmaa.DEFAULT_VISION,
+                    Bmaa.DEFAULT_MOVES,
                     false,
                     false).runWithMultipleTimeLimits(timeLimits);
 

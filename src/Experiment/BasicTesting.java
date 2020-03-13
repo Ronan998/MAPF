@@ -1,11 +1,11 @@
 package Experiment;
 
-import BMAA.BMAA;
+import Algorithm.BMAA.Bmaa;
 import Benchmark.Benchmark;
 import Benchmark.ProblemMap;
 import Benchmark.ProblemSet;
 import com.google.common.base.Stopwatch;
-import dataStructures.graph.Graph;
+import DataStructures.graph.Graph;
 import Benchmark.Result;
 
 import java.time.Duration;
@@ -34,12 +34,12 @@ public class BasicTesting {
         System.out.println("Beginning execution");
         Stopwatch stopwatch = Stopwatch.createStarted();
         Long start = System.currentTimeMillis();
-        Result result = new BMAA(graph,
+        Result result = new Bmaa(graph,
                 problemSet.getS(),
                 problemSet.getT(),
-                BMAA.DEFAULT_EXPANSIONS,
-                BMAA.DEFAULT_VISION,
-                BMAA.DEFAULT_MOVES,
+                Bmaa.DEFAULT_EXPANSIONS,
+                Bmaa.DEFAULT_VISION,
+                Bmaa.DEFAULT_MOVES,
                 false,
                 false).runWithTimeLimit(Duration.ofSeconds(5));
         stopwatch.stop();
@@ -65,12 +65,12 @@ public class BasicTesting {
             ProblemSet problemSet = ProblemSet.randomProblemSet(graph, 500);
 
             Stopwatch stopwatch = Stopwatch.createStarted();
-            Result result = new BMAA(graph,
+            Result result = new Bmaa(graph,
                     problemSet.getS(),
                     problemSet.getT(),
-                    BMAA.DEFAULT_EXPANSIONS,
-                    BMAA.DEFAULT_VISION,
-                    BMAA.DEFAULT_MOVES,
+                    Bmaa.DEFAULT_EXPANSIONS,
+                    Bmaa.DEFAULT_VISION,
+                    Bmaa.DEFAULT_MOVES,
                     false,
                     false).runWithTimeLimit(Duration.ofSeconds(30));
 
@@ -123,12 +123,12 @@ public class BasicTesting {
                 Graph graph = ProblemMap.graphFromMap(map);
                 ProblemSet problemSet = ProblemSet.randomProblemSet(graph, n);
 
-                Result result = new BMAA(graph,
+                Result result = new Bmaa(graph,
                         problemSet.getS(),
                         problemSet.getT(),
-                        BMAA.DEFAULT_EXPANSIONS,
-                        BMAA.DEFAULT_VISION,
-                        BMAA.DEFAULT_MOVES,
+                        Bmaa.DEFAULT_EXPANSIONS,
+                        Bmaa.DEFAULT_VISION,
+                        Bmaa.DEFAULT_MOVES,
                         false,
                         false).runWithTimeLimit(Duration.ofSeconds(30));
 

@@ -1,7 +1,7 @@
 package Benchmark;
 
-import dataStructures.graph.Graph;
-import dataStructures.graph.Node;
+import DataStructures.graph.Graph;
+import DataStructures.graph.Node;
 
 import java.util.ArrayList;
 import java.util.List;

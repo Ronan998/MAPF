@@ -1,19 +1,16 @@
-package BMAA;
+package Algorithm.Waypoint;
 
-import dataStructures.PriorityQueue;
-import dataStructures.graph.Graph;
-import dataStructures.graph.Node;
+import Algorithm.Agent;
+import Algorithm.Time;
+import DataStructures.PriorityQueue;
+import DataStructures.graph.Graph;
+import DataStructures.graph.Node;
 
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 
-public class Agent{
+public class WaypointAgent extends Agent {
 
     private Graph graph;
-
-    private Node start;
-    private Node goal;
-    private Node currentNode;
 
     private Node previousNode;
     private Long lastMoveTime;
@@ -41,11 +38,12 @@ public class Agent{
 
     private HashMap<Node, Double> heuristics = new HashMap<>();
 
-    public Agent(Graph graph, Node start, Node goal,
-                 int expansions, double vision, int moves, Time time, double closeness) {
+    public WaypointAgent(Graph graph, Node start, Node goal,
+                         int expansions, double vision, int moves, Time time, double closeness) {
         this.graph = graph;
-        this.start = start;
-        this.goal = goal;
+        setStart(start);
+        setCurrentNode(start);
+        setGoal(goal);
 
         this.expansions = expansions;
         this.vision = vision;
@@ -53,10 +51,10 @@ public class Agent{
 
         this.time = time;
 
-        this.currentNode = start;
+        setCurrentNode(start);
 
         this.pathPrefix = new ArrayList<>();
-        this.pathPrefix.add(this.currentNode);
+        this.pathPrefix.add(getCurrentNode());
 
         this.currentPathIndex = 0;
 
@@ -64,7 +62,7 @@ public class Agent{
         // we must set its completion time (seconds) to = 0
         // Completion Time (Time Steps) has the same edge case, so we must
         // set its completion time (time steps) to = 0 also
-        if (this.start == this.goal) {
+        if (getStart() == getGoal()) {
             this.completionTimeSeconds = 0L;
             this. completionTimeSteps = 0;
         }
@@ -101,19 +99,19 @@ public class Agent{
         Map<Node, Node> closed = new HashMap<>();
         Map<Node, Double> gCosts = new HashMap<>();
 
-        open.put(currentNode, 0);
-        gCosts.put(currentNode, 0.00);
+        open.put(getCurrentNode(), 0);
+        gCosts.put(getCurrentNode(), 0.00);
 
         // TODO collapse parent into open data structure?
         Map<Node, Node> parents = new HashMap<>();
-        parents.put(currentNode, null);
+        parents.put(getCurrentNode(), null);
 
         Node n = null;
         while (!open.isEmpty()) {
             n = open.get();
             closed.put(n, parents.get(n));
 
-            if (n == goal || exp > expansions) {
+            if (n == getGoal() || exp > expansions) {
                 List<Node> p = constructPath(closed, n);
                 paths.addAll(p);
 
@@ -122,7 +120,7 @@ public class Agent{
                 return new SearchState(open, closed, gCosts);
             }
 
-            if (currentWaypoint() != goal) {
+            if (currentWaypoint() != getGoal()) {
                 if (n.octileDistance(currentWaypoint()) <= closeness) {
                     List<Node> p = constructPath(closed, n);
                     paths.addAll(p);
@@ -147,7 +145,7 @@ public class Agent{
             for (Node neighbour : graph.getNeigbours(n)) {
                 double distance = n.euclideanDistance(neighbour);
 
-                if ((neighbour.isOccupied() && (neighbour != goal)) && distance < vision) {
+                if ((neighbour.isOccupied() && (neighbour != getGoal())) && distance < vision) {
                     continue;
                 }
 
@@ -240,7 +238,7 @@ public class Agent{
      * @return a boolean indicating if the agents next node is defined
      */
     public boolean nextNodeIsDefined() {
-        if (this.currentNode == this.pathPrefix.get(this.currentPathIndex) &&
+        if (getCurrentNode() == this.pathPrefix.get(this.currentPathIndex) &&
                 this.currentPathIndex < this.pathPrefix.size() - 1) {
             return true;
         }
@@ -252,7 +250,7 @@ public class Agent{
      * @return the next node on the agents path prefix
      */
     public Node getNextNode() {
-        if (this.currentNode == this.pathPrefix.get(this.currentPathIndex) &&
+        if (this.getCurrentNode() == this.pathPrefix.get(this.currentPathIndex) &&
             this.currentPathIndex < this.pathPrefix.size() - 1) {
             return pathPrefix.get(currentPathIndex + 1);
         }
@@ -262,47 +260,15 @@ public class Agent{
     // -----------------------------------
 
     /**
-     * Returns the Node which the agent started at in the beginning of the computation.
-     * @return the Node which the agent started at
-     */
-    public Node getStart() {
-        return start;
-    }
-
-    /**
-     * Returns the Node which is the agents goal.
-     * @return the Node which is the agents goal
-     */
-    public Node getGoal() {
-        return goal;
-    }
-
-    /**
-     * Returns the node which the agent is currently occupying.
-     * @return the node the agent is currently occupying
-     */
-    public Node getCurrentNode() {
-        return currentNode;
-    }
-
-    /**
-     * Return whether or not the agent currently occupies its goal location.
-     * @return a boolean indicating if the agent is on its goal
-     */
-    public boolean atGoal() {
-        return currentNode == goal;
-    }
-
-    /**
      * Update the agents state to reflect that it has moved between nodes.
      */
     public void moveToNextOnPath() {
         updateMetrics(this.pathPrefix.get(currentPathIndex + 1));
 
-        this.currentNode.leave();
+        getCurrentNode().leave();
         this.currentPathIndex += 1;
-        this.currentNode = this.pathPrefix.get(currentPathIndex);
-        this.currentNode.enter(this);
+        setCurrentNode(this.pathPrefix.get(currentPathIndex));
+        getCurrentNode().enter(this);
     }
 
     /**
@@ -312,9 +278,9 @@ public class Agent{
     private void moveTo(Node node){
         updateMetrics(node);
 
-        this.currentNode.leave();
-        this.currentNode = node;
-        this.currentNode.enter(this);
+        getCurrentNode().leave();
+        setCurrentNode(node);
+        getCurrentNode().enter(this);
     }
 
     /**
@@ -324,7 +290,7 @@ public class Agent{
      * @return the node it has been pushed to.
      */
     public Node push() {
-        Set<Node> adjacentNodes = this.graph.getNeigbours(currentNode);
+        Set<Node> adjacentNodes = this.graph.getNeigbours(getCurrentNode());
 
         for (Node node : adjacentNodes) {
             if (!node.isOccupied()) {
@@ -345,17 +311,17 @@ public class Agent{
      */
     private void updateMetrics(Node nextNode) {
         // Metrics for completion rate
-        this.previousNode = this.currentNode;
+        this.previousNode = getCurrentNode();
         this.lastMoveTime = this.time.milliSecondsElapsed();
 
         // Completion Time (Seconds) and Completion Time (Time-Steps)
-        if (nextNode == goal) {
+        if (nextNode == getGoal()) {
             this.completionTimeSeconds = this.time.milliSecondsElapsed();
             this.completionTimeSteps = this.time.getTimeSteps();
         }
 
         // Travel distance
-        this.travelDistance += graph.getEdge(this.currentNode, nextNode).getWeight();
+        this.travelDistance += graph.getEdge(getCurrentNode(), nextNode).getWeight();
     }
 
     /**
@@ -366,14 +332,14 @@ public class Agent{
     public boolean atGoalBeforeTimeLimit(long timeLimit) {
         // Special case where the agent never moved
         if (previousNode == null) {
-            return this.currentNode == this.goal;
+            return getCurrentNode() == getGoal();
         }
         // Otherwise compare the node against the agents correct position according to the time limit
         if (lastMoveTime < timeLimit) {
-            return this.currentNode == this.goal;
+            return getCurrentNode() == getGoal();
         }
         else {
-            return this.previousNode == this.goal;
+            return this.previousNode == getGoal();
         }
     }
 
@@ -391,7 +357,7 @@ public class Agent{
      */
     public Long getCompletionTimeSeconds(long timeLimit) {
         if (lastMoveTime < timeLimit) {
-            if (this.currentNode == this.goal) {
+            if (getCurrentNode() == getGoal()) {
                 return this.completionTimeSeconds;
             }
             else {
@@ -399,7 +365,7 @@ public class Agent{
             }
         }
         else {
-            if (this.previousNode == this.goal) {
+            if (this.previousNode == getGoal()) {
                 return completionTimeSeconds;
             }
             else {
@@ -422,7 +388,7 @@ public class Agent{
      */
     public Integer getCompletionTimeSteps(long timeLimit) {
         if (lastMoveTime < timeLimit) {
-            if (this.currentNode == this.goal) {
+            if (getCurrentNode() == getGoal()) {
                 return this.completionTimeSteps + 1;
             }
             else {
@@ -430,7 +396,7 @@ public class Agent{
             }
         }
         else {
-            if (this.previousNode == this.goal) {
+            if (this.previousNode == getGoal()) {
                 return completionTimeSteps + 1;
             }
             else {
@@ -457,7 +423,7 @@ public class Agent{
             return this.travelDistance;
         }
         else {
-            double invalidMoveCost = graph.getEdge(this.currentNode, this.previousNode).getWeight();
+            double invalidMoveCost = graph.getEdge(getCurrentNode(), this.previousNode).getWeight();
             return travelDistance - invalidMoveCost;
         }
     }
@@ -480,7 +446,7 @@ public class Agent{
      */
     private void nextWaypoint() {
         this.currentWaypointIndex += 1;
-        if (currentWaypoint() == goal) {
+        if (currentWaypoint() == getGoal()) {
             closeness = 0;
         }
     }
@@ -495,18 +461,18 @@ public class Agent{
      * @return a path of nodes that will lead to the goal
      */
     public List<Node> computeFullPath() {
-        Node start = this.start;
-        Node goal = this.goal;
+        Node start = getStart();
+        Node goal = getGoal();
 
         PriorityQueue<Node> open = new PriorityQueue<>();
         Map<Node, Node> closed = new HashMap<>();
         Map<Node, Double> gCosts = new HashMap<>();
 
-        open.put(currentNode, 0);
-        gCosts.put(currentNode, 0.00);
+        open.put(getCurrentNode(), 0);
+        gCosts.put(getCurrentNode(), 0.00);
 
         Map<Node, Node> parents = new HashMap<>();
-        parents.put(currentNode, null);
+        parents.put(getCurrentNode(), null);
 
         Node n = null;
         while (!open.isEmpty()) {
@@ -625,12 +591,11 @@ public class Agent{
         }
         return "Agent" + "\n" +
                 "----------------" + "\n" +
-                "Current Node: " + currentNode + "\n" +
-                "Starting Node: " + start + "\n" +
-                "Goal Node: " + goal +  "\n" +
+                "Current Node: " + getCurrentNode() + "\n" +
+                "Starting Node: " + getStart() + "\n" +
+                "Goal Node: " + getGoal() +  "\n" +
                 "Path: " + pathStr +  "\n" +
                 "Time: " + time.getTimeSteps();
-
     }
 
 }

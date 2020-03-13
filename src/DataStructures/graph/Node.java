@@ -1,6 +1,6 @@
-package dataStructures.graph;
+package DataStructures.graph;
 
-import BMAA.Agent;
+import Algorithm.Agent;
 import Error.CollisionException;
 
 public class Node{

@@ -1,4 +1,4 @@
-package BMAA;
+package Algorithm;
 
 import com.google.common.base.Stopwatch;
 

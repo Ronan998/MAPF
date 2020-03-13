@@ -1,14 +1,14 @@
 package Experiment;
 
-import BMAA.BMAA;
-import BMAA.Agent;
-import BMAA.Time;
+import Algorithm.BMAA.Bmaa;
+import Algorithm.BMAA.BmaaAgent;
+import Algorithm.Time;
 import Benchmark.Benchmark;
 import Benchmark.ProblemMap;
 import Benchmark.ProblemSet;
 import com.google.common.base.Stopwatch;
-import dataStructures.graph.Graph;
-import dataStructures.graph.Node;
+import DataStructures.graph.Graph;
+import DataStructures.graph.Node;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,12 +62,12 @@ public class ComparisonTesting {
                 for (int i = 0; i < 10; i++) {
                     Graph graph = ProblemMap.graphFromMap(map);
                     ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
-                    List<Agent> agents = createAgents(graph, problemSet.getS(), problemSet.getT());
+                    List<BmaaAgent> agents = createAgents(graph, problemSet.getS(), problemSet.getT());
 
                     List<List<Node>> paths = new ArrayList<>();
                     Stopwatch stopwatch = Stopwatch.createStarted();
 
-                    for (Agent agent : agents) {
+                    for (BmaaAgent agent : agents) {
                         List<Node> path = agent.computeFullPath();
                         paths.add(path);
                     }
@@ -106,16 +106,16 @@ public class ComparisonTesting {
     /**
      * Create a list of agents. Only to be used for experiment1 above.
      */
-    private static List<Agent> createAgents(Graph graph, List<Node> s, List<Node> t) {
+    private static List<BmaaAgent> createAgents(Graph graph, List<Node> s, List<Node> t) {
         Time time = new Time();
 
-        int expansions = BMAA.DEFAULT_EXPANSIONS;
-        double vision = BMAA.DEFAULT_VISION;
-        int moves = BMAA.DEFAULT_MOVES;
+        int expansions = Bmaa.DEFAULT_EXPANSIONS;
+        double vision = Bmaa.DEFAULT_VISION;
+        int moves = Bmaa.DEFAULT_MOVES;
 
-        List<Agent> agents = new ArrayList<>();
+        List<BmaaAgent> agents = new ArrayList<>();
         for (int i=0; i<s.size(); i++) {
-            agents.add(new Agent(graph, s.get(i), t.get(i), expansions, vision, moves, time, 10*Math.sqrt(2)));
+            agents.add(new BmaaAgent(graph, s.get(i), t.get(i), expansions, vision, moves, time, 10*Math.sqrt(2)));
         }
         return agents;
     }

@@ -1,6 +1,6 @@
-package dataStructures.graph;
+package DataStructures.graph;
 
-import dataStructures.PriorityQueue;
+import DataStructures.PriorityQueue;
 
 import java.util.*;
 

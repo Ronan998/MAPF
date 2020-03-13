@@ -1,18 +1,16 @@
-package BMAA;
+package Algorithm.Waypoint;
 
+import Algorithm.Time;
 import Benchmark.Result;
-import Visualisation.Visualisation;
-import dataStructures.graph.Graph;
-import dataStructures.graph.Node;
 import Error.NoAgentAtGoalException;
+import DataStructures.graph.Graph;
+import DataStructures.graph.Node;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class BMAA{
+public class WaypointBmaa {
 
     public static final int DEFAULT_EXPANSIONS = 32;
     public static final double DEFAULT_VISION = Math.sqrt(2);
@@ -26,7 +24,7 @@ public class BMAA{
     private final boolean FLOW;
 
     private Graph graph;
-    private List<Agent> agents;
+    private List<WaypointAgent> agents;
 
     public Time time = new Time();
 
@@ -35,8 +33,8 @@ public class BMAA{
      */
     private long timeLimit;
 
-    public BMAA(Graph graph, List<Node> s, List<Node> t,
-            int expansions, double vision, int moves, boolean push, boolean flow) {
+    public WaypointBmaa(Graph graph, List<Node> s, List<Node> t,
+                        int expansions, double vision, int moves, boolean push, boolean flow) {
         this.EXPANSIONS = expansions;
         this.VISION = vision;
         this.MOVES = moves;
@@ -50,7 +48,7 @@ public class BMAA{
     public Result runWithTimeLimit(Duration timeLimit) {
         this.timeLimit = timeLimit.toMillis();
 
-        for (Agent a : agents) a.init();
+        for (WaypointAgent a : agents) a.init();
         System.out.println("Finished computing full paths and decomposing");
         while (!allAgentsAtGoals() && underTimeLimit()) {
             time.startStopWatch();
@@ -70,7 +68,7 @@ public class BMAA{
     public List<Result> runWithMultipleTimeLimits(List<Integer> stopTimes) {
         List<Result> results = new ArrayList<>();
 
-        for (Agent agent : agents) agent.init();
+        for (WaypointAgent agent : agents) agent.init();
 
         for (int stopTime : stopTimes) {
             this.timeLimit = stopTime;
@@ -93,7 +91,7 @@ public class BMAA{
 
         // Completion Rate
         int agentsAtGoal = 0;
-        for (Agent agent : agents) {
+        for (WaypointAgent agent : agents) {
             if (agent.atGoalBeforeTimeLimit(timeLimit)) {
                 agentsAtGoal += 1;
             }
@@ -227,11 +225,11 @@ public class BMAA{
 //    }
 
     private void npcController() {
-        for (Agent agent : agents) {
+        for (WaypointAgent agent : agents) {
             agent.searchPhase();
         }
 
-        for (Agent agent : agents) {
+        for (WaypointAgent agent : agents) {
             if (agent.nextNodeIsDefined()) {
                 Node n = agent.getNextNode();
 
@@ -254,7 +252,7 @@ public class BMAA{
                                      int expansions, double vision, int moves, boolean push, boolean flow) {
         agents = new ArrayList<>();
         for (int i=0; i<s.size(); i++) {
-           agents.add(new Agent(graph, s.get(i), t.get(i), expansions, vision, moves, time, 10*Math.sqrt(2)));
+           agents.add(new WaypointAgent(graph, s.get(i), t.get(i), expansions, vision, moves, time, 10*Math.sqrt(2)));
         }
     }
 
