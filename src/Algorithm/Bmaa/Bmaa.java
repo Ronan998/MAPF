@@ -26,7 +26,7 @@ public class Bmaa{
     private Graph graph;
     private List<BmaaAgent> agents;
 
-    public Time time = new Time();
+    private Time time = new Time();
 
     /**
      * The time limit imposed on runtime of the algorithm, in milliSeconds
@@ -152,74 +152,6 @@ public class Bmaa{
 
     // ------------------------------------------------------------------------------------------
 
-    /**
-     * Implementation of BMAA* NPC Controller algorithm.
-     * The controller first invokes every agents {@code agent.searchPhase}
-     * algorithm, allowing it to compute their prefix paths if needed.
-     * Then the controller iterates through each agent, first getting the node
-     * {@code n} to which they should next move to. If the desired node is
-     * blocked by an agent that has reached its goal node already and
-     * {@code ALLOWED_PUSH} is set to true, the agent can push the other agent
-     * off its goal node.
-     * Finally if the node is clear of any obstruction, the algorithm moves the
-     * agent to its desired node.
-     *
-     */
-//    public void npcController() {
-//        startTime = System.currentTimeMillis();
-//        //timeLimit = startTime + (30 * 1000);
-//
-//        timeLimit = 5;
-//
-//        Stopwatch stopwatch = Stopwatch.createStarted();
-//
-//        while (stopwatch.elapsed(TimeUnit.SECONDS) <= 30) {
-//
-//            if (stopwatch.elapsed(TimeUnit.SECONDS) >= timeLimit) {
-//                stopwatch.stop();
-//                // Collect results
-//                Result result = collectResults();
-//                System.out.println(result);
-//                // Update time limit
-//                timeLimit += 5;
-//                stopwatch.start();
-//            }
-//
-//            boolean complete = true;
-//            for (Agent agent : agents) {
-//                if (!agent.atGoal()) {
-//                    complete = false;
-//                }
-//            }
-//            if (complete) {
-//                break;
-//            }
-//
-//            for (Agent agent : agents) {
-//                agent.searchPhase();
-//            }
-//
-//            for (Agent agent : agents) {
-//                if (agent.nextNodeIsDefined()) {
-//                    Node n = agent.getNextNode();
-//
-//                    if (PUSH && n.isOccupied() && n.getAgent().atGoal()) {
-//                        n.getAgent().push();
-//                    }
-//
-//                    if (!n.isOccupied()) {
-//                        agent.moveToNextOnPath();
-//                    }
-//                }
-//            }
-//
-//            time.increment();
-//        }
-//
-//        stopwatch.stop();
-//        Long timeTaken = stopwatch.elapsed(TimeUnit.SECONDS);
-//    }
-
     private void npcController() {
         for (BmaaAgent agent : agents) {
             agent.searchPhase();
@@ -269,16 +201,5 @@ public class Bmaa{
      */
     private boolean underTimeLimit() {
         return time.milliSecondsElapsed() < timeLimit;
-    }
-
-    /**
-     * Get the time at which the execution of the algorithm should halt.
-     * Due to limitation in the java language, it does not seem possible to enforce this time limit
-     * such that the algorithm terminates exactly upon passing it, but we stop as soon as we can with
-     * regular polling of the current time.
-     * @return the time at which the algorithm should terminate
-     */
-    public long getTimeLimit() {
-        return timeLimit;
     }
 }
