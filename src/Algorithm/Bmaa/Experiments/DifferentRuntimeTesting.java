@@ -80,7 +80,7 @@ public class DifferentRuntimeTesting {
     }
 
     /**
-     * Run the algorithm for different time limits, for different agent counts, for every map.
+     * Run the algorithm for different time limits, for different agent counts, for specified set of maps.
      */
     public static void experiment2(List<String> maps) {
         for (String mapPath : maps) {
