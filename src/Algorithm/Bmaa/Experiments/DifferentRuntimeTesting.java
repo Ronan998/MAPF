@@ -166,24 +166,6 @@ public class DifferentRuntimeTesting {
         return averaged;
     }
 
-    /**
-     * Parse command line arguments and return them as a list.
-     * @param args String command line arguments
-     * @return a list of the command line arguments
-     */
-    private static List<String> parseArgs(String[] args) {
-        return Arrays.stream(args).collect(Collectors.toList());
-    }
-
-    private static List<String> reverse(List<String> l) {
-        List<String> reversed = new ArrayList<>();
-        for (int i=l.size() - 1; i>=0; i--) {
-            String e = l.get(i);
-            reversed.add(e);
-        }
-        return reversed;
-    }
-
     @SafeVarargs
     private static void writeToFile(Path file, List<String>... lines) {
         List<String> output =
