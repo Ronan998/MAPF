@@ -4,18 +4,6 @@ import DataStructures.PriorityQueue;
 
 import java.util.*;
 
-/**
- * Explanation of structure
- * HashMap: node -> (neighbour -> edge)
- *          nodeEntry -> (negbourEntry -> edge)
- *
- * Map nodes
- * -----
- * Map neigbours
- * -----
- * Core.Edge edge
- */
-
 public class Graph {
 
     private Map<Node, Map<Node, Edge>> structure = new HashMap<>();

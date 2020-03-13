@@ -1,11 +1,6 @@
 package Benchmark;
 
-import Common.Util;
-
-import java.time.Duration;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Class to represent the results of running an MAPF algorithm.
