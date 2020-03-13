@@ -1,6 +1,6 @@
 package Algorithm.Waypoint.Experiments;
 
-import Algorithm.Bmaa.Bmaa;
+import Algorithm.Waypoint.WaypointBmaa;
 import Benchmark.Benchmark;
 import Benchmark.Result;
 import Benchmark.ProblemSet;
@@ -138,12 +138,12 @@ public class DifferentRunTimeTesting {
             Graph graph = ProblemMap.graphFromMap(mapPath);
             ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
 
-            List<Result> results = new Bmaa(graph,
+            List<Result> results = new WaypointBmaa(graph,
                     problemSet.getS(),
                     problemSet.getT(),
-                    Bmaa.DEFAULT_EXPANSIONS,
-                    Bmaa.DEFAULT_VISION,
-                    Bmaa.DEFAULT_MOVES,
+                    WaypointBmaa.DEFAULT_EXPANSIONS,
+                    WaypointBmaa.DEFAULT_VISION,
+                    WaypointBmaa.DEFAULT_MOVES,
                     false,
                     false).runWithMultipleTimeLimits(timeLimits);
 
