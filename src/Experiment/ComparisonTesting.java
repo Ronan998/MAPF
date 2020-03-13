@@ -1,7 +1,7 @@
 package Experiment;
 
-import Algorithm.BMAA.Bmaa;
-import Algorithm.BMAA.BmaaAgent;
+import Algorithm.Bmaa.Bmaa;
+import Algorithm.Bmaa.BmaaAgent;
 import Algorithm.Time;
 import Benchmark.Benchmark;
 import Benchmark.ProblemMap;

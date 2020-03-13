@@ -1,6 +1,6 @@
 package Visualisation;
 
-import Algorithm.BMAA.BmaaAgent;
+import Algorithm.Bmaa.BmaaAgent;
 import DataStructures.graph.Graph;
 
 import javax.swing.*;

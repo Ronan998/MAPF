@@ -1,6 +1,6 @@
 package Experiment;
 
-import Algorithm.BMAA.Bmaa;
+import Algorithm.Bmaa.Bmaa;
 import Benchmark.Benchmark;
 import Benchmark.Result;
 import Benchmark.ProblemSet;

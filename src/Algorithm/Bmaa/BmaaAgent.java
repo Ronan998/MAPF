@@ -1,4 +1,4 @@
-package Algorithm.BMAA;
+package Algorithm.Bmaa;
 
 import Algorithm.Agent;
 import Algorithm.Time;

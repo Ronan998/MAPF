@@ -1,6 +1,5 @@
-package Algorithm.BMAA;
+package Algorithm.Bmaa;
 
-import Algorithm.Agent;
 import Algorithm.Time;
 import Benchmark.Result;
 import DataStructures.graph.Graph;
