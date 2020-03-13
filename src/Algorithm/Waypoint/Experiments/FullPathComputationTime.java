@@ -1,7 +1,7 @@
-package Experiment;
+package Algorithm.Waypoint.Experiments;
 
-import Algorithm.Bmaa.Bmaa;
-import Algorithm.Bmaa.BmaaAgent;
+import Algorithm.Waypoint.WaypointBmaa;
+import Algorithm.Waypoint.WaypointAgent;
 import Algorithm.Time;
 import Benchmark.Benchmark;
 import Benchmark.ProblemMap;
@@ -19,7 +19,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ComparisonTesting {
+/**
+ * This class is to hold experiments for determining how much time it takes to calculate full paths for
+ * different amounts of agents and on different maps.
+ */
+public class FullPathComputationTime {
 
     public static List<Integer> timeLimits =
             List.of(1000, 1250, 1500, 1750,
@@ -62,12 +66,12 @@ public class ComparisonTesting {
                 for (int i = 0; i < 10; i++) {
                     Graph graph = ProblemMap.graphFromMap(map);
                     ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
-                    List<BmaaAgent> agents = createAgents(graph, problemSet.getS(), problemSet.getT());
+                    List<WaypointAgent> agents = createAgents(graph, problemSet.getS(), problemSet.getT());
 
                     List<List<Node>> paths = new ArrayList<>();
                     Stopwatch stopwatch = Stopwatch.createStarted();
 
-                    for (BmaaAgent agent : agents) {
+                    for (WaypointAgent agent : agents) {
                         List<Node> path = agent.computeFullPath();
                         paths.add(path);
                     }
@@ -106,16 +110,16 @@ public class ComparisonTesting {
     /**
      * Create a list of agents. Only to be used for experiment1 above.
      */
-    private static List<BmaaAgent> createAgents(Graph graph, List<Node> s, List<Node> t) {
+    private static List<WaypointAgent> createAgents(Graph graph, List<Node> s, List<Node> t) {
         Time time = new Time();
 
-        int expansions = Bmaa.DEFAULT_EXPANSIONS;
-        double vision = Bmaa.DEFAULT_VISION;
-        int moves = Bmaa.DEFAULT_MOVES;
+        int expansions = WaypointBmaa.DEFAULT_EXPANSIONS;
+        double vision = WaypointBmaa.DEFAULT_VISION;
+        int moves = WaypointBmaa.DEFAULT_MOVES;
 
-        List<BmaaAgent> agents = new ArrayList<>();
+        List<WaypointAgent> agents = new ArrayList<>();
         for (int i=0; i<s.size(); i++) {
-            agents.add(new BmaaAgent(graph, s.get(i), t.get(i), expansions, vision, moves, time, 10*Math.sqrt(2)));
+            agents.add(new WaypointAgent(graph, s.get(i), t.get(i), expansions, vision, moves, time, 10*Math.sqrt(2)));
         }
         return agents;
     }

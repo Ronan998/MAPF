@@ -1,4 +1,4 @@
-package Experiment;
+package Algorithm.Waypoint.Experiments;
 
 import Algorithm.Bmaa.Bmaa;
 import Benchmark.Benchmark;
@@ -15,6 +15,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Run the Waypoint-BMAA algorithm for different amounts of agents, to different time limits, on all maps.
+ */
 public class DifferentRunTimeTesting {
 
     public static List<Integer> timeLimits =

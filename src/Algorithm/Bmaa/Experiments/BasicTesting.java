@@ -1,4 +1,4 @@
-package Experiment;
+package Algorithm.Bmaa.Experiments;
 
 import Algorithm.Bmaa.Bmaa;
 import Benchmark.Benchmark;
@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class is just some basic testing of the algorithms and testing methods that have been developed.
+ */
 public class BasicTesting {
 
     public static void main(String[] args) {
@@ -109,7 +112,7 @@ public class BasicTesting {
 
     /**
      * This experiment is to a basic test of running the algorithm at multiple agent counts, making sure the results look
-     * ok, collecting data to be used in answering questions such as why do we average over multiple agent counts?
+     * ok.
      */
     public static void experiment3() {
         String map = "maps/BGII-AR0504SR (512*512).map";
