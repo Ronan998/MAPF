@@ -68,11 +68,11 @@ public class Bmaa{
 
         for (int stopTime : stopTimes) {
             this.timeLimit = stopTime;
-            time.startStopWatch();
             while (!allAgentsAtGoals() && underTimeLimit()) {
+                time.startStopWatch();
                 npcController();
+                time.stopStopWatch();
             }
-            time.stopStopWatch();
             try {
                 results.add(collectResults());
             } catch (NoAgentAtGoalException e) {
