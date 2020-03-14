@@ -1,10 +1,10 @@
-package Algorithm.Bmaa.Experiments;
+package Algorithm.Waypoint.Experiments;
 
-import Algorithm.Bmaa.Bmaa;
+import Algorithm.Waypoint.WaypointBmaa;
 import Benchmark.Benchmark;
-import Benchmark.ProblemMap;
 import Benchmark.Result;
 import Benchmark.ProblemSet;
+import Benchmark.ProblemMap;
 import DataStructures.graph.Graph;
 
 import java.nio.file.Files;
@@ -16,57 +16,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class contains experiments for testing the BMAA algorithm at different time limits.
+ * Purpose of these experiments in this class is to get data on how completion rate scales over time
+ * for the Waypoint algorithm.
  */
-public class DifferentRuntimeTesting {
+public class Experiment2 {
 
     public static void main(String[] args) {
-        experiment2(Benchmark.BMAA_TEST_MAPS);
+        experiment1(Benchmark.BMAA_TEST_MAPS);
     }
 
     /**
-     * Run the algorithm against different time limits for different numbers of agents
+     * Run the algorithm for different time limits, for different agent counts, for every map.
      */
-    public static void experiment1() {
-        List<List<Result>> results = new ArrayList<>();
-
-        for (int agentCount : Benchmark.BMAA_AGENT_COUNTS) {
-            results.add(runForNAgents("maps/BGII-AR0504SR (512*512).map", agentCount));
-        }
-
-        // Group by stopping time
-        java.util.Map<Integer, List<Result>> grouped =
-                results.stream()
-                        .flatMap(List::stream)
-                        .collect(Collectors.groupingBy(Result::getTimeLimit, Collectors.toList()));
-
-        // Record these results
-        Path file = Path.of("logs/detail " + "BGII-AR0504SR (512*512)");
-        writeToFile(file, List.of(Result.csvHeaders()),
-                grouped.entrySet().stream().flatMap(entry -> entry.getValue().stream())
-                        .map(Result::toCsvString)
-                        .collect(Collectors.toList()));
-
-        // Average the results across different agent counts
-        List<Result> averaged = new ArrayList<>();
-        for (List<Result> r : grouped.values()) {
-            averaged.add(Result.averageDifferentAgentCountsResults(r));
-        }
-
-        // At the end we have a result for each time limit averaged across different agent counts
-        file = Path.of("logs/averaged " + "BGII-AR0504SR (512*512)");
-        writeToFile(file,
-                List.of(Result.csvHeaders()),
-                averaged.stream()
-                        .map(Result::toCsvString)
-                        .collect(Collectors.toList())
-        );
-    }
-
-    /**
-     * Run the algorithm for different time limits, for different agent counts, for specified set of maps.
-     */
-    public static void experiment2(List<String> maps) {
+    public static void experiment1(List<String> maps) {
         for (String mapPath : maps) {
 
             List<List<Result>> results = new ArrayList<>();
@@ -117,19 +79,19 @@ public class DifferentRuntimeTesting {
         // ------------------------------------------------
         List<List<Result>> instanceResults = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
 
             Graph graph = ProblemMap.graphFromMap(mapPath);
             ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
 
-            List<Result> results = new Bmaa(graph,
+            List<Result> results = new WaypointBmaa(graph,
                     problemSet.getS(),
                     problemSet.getT(),
-                    Bmaa.DEFAULT_EXPANSIONS,
-                    Bmaa.DEFAULT_VISION,
-                    Bmaa.DEFAULT_MOVES,
+                    WaypointBmaa.DEFAULT_EXPANSIONS,
+                    WaypointBmaa.DEFAULT_VISION,
+                    WaypointBmaa.DEFAULT_MOVES,
                     false,
-                    false).runWithMultipleTimeLimits(Benchmark.TIME_LIMITS);
+                    false).runWithMultipleTimeLimitsWithFulPathConstruction(Benchmark.TIME_LIMITS);
 
             instanceResults.add(results);
         }
@@ -165,3 +127,4 @@ public class DifferentRuntimeTesting {
         }
     }
 }
+

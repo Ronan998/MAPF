@@ -87,6 +87,34 @@ public class WaypointBmaa {
         return results;
     }
 
+    /**
+     * Run the algorithm in the same way as  {@link #runWithMultipleTimeLimits(List)} but include
+     * the time it takes to build full paths in the timing of the overall algorithm.
+     */
+    public List<Result> runWithMultipleTimeLimitsWithFulPathConstruction(List<Integer> stopTimes) {
+        List<Result> results = new ArrayList<>();
+
+        time.startStopWatch();
+        for (WaypointAgent agent : agents) agent.init();
+        time.stopStopWatch();
+
+        for (int stopTime : stopTimes) {
+            this.timeLimit = stopTime;
+            time.startStopWatch();
+            while (!allAgentsAtGoals() && underTimeLimit()) {
+                npcController();
+            }
+            time.stopStopWatch();
+            try {
+                results.add(collectResults());
+            } catch (NoAgentAtGoalException e) {
+                e.printStackTrace();
+                System.out.println("Skipping " + stopTime + "ms timelimit");
+            }
+        }
+        return results;
+    }
+
     private Result collectResults() {
 
         // Completion Rate
