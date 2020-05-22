@@ -3,9 +3,9 @@ package Algorithm.Waypoint.Experiments;
 import Algorithm.Waypoint.WaypointBmaa;
 import Benchmark.Benchmark;
 import Benchmark.Result;
+import DataStructures.graph.Graph;
 import Benchmark.ProblemSet;
 import Benchmark.ProblemMap;
-import DataStructures.graph.Graph;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,10 +17,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Purpose of these experiments in this class is to get data on how completion rate scales over time
- * for the Waypoint algorithm.
+ * Purpose of this experiment is to evaluate algorithms with a time cost associated with agent movement.
  */
-public class Experiment2 {
+public class Experiment6 {
 
     public static Path currentLogPath;
 
@@ -92,7 +91,10 @@ public class Experiment2 {
         for (int i = 0; i < 10; i++) {
 
             Graph graph = ProblemMap.graphFromMap(mapPath);
-            ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
+            ProblemSet problemSet = ProblemSet.fromRegions(graph,
+                    agentCount,
+                    new ProblemSet.Region(60, 0, 440, 480),
+                    new ProblemSet.Region(60, 420, 440, 512));
 
             List<Result> results = new WaypointBmaa(graph,
                     problemSet.getS(),
@@ -101,28 +103,13 @@ public class Experiment2 {
                     WaypointBmaa.DEFAULT_VISION,
                     WaypointBmaa.DEFAULT_MOVES,
                     false,
-                    false).runWithMultipleTimeLimitsWithFulPathConstruction(Benchmark.TIME_LIMITS);
+                    false).runWithMultipleTimeLimitsWithFulPathConstructionWithMovementCost(Benchmark.TIME_LIMITS);
 
             for (Result result : results) {
                 writeToFile(currentLogPath, List.of(result.toCsvString()));
             }
             instanceResults.add(results);
         }
-
-//        // Group by time limit
-//        java.util.Map<Integer, List<Result>> grouped =
-//                instanceResults.stream()
-//                        .flatMap(List::stream)
-//                        .collect(Collectors.groupingBy(Result::getTimeLimit, Collectors.toList()));
-//
-//        // Average the instances of each time limit
-//        List<Result> averaged = new ArrayList<>();
-//        for (List<Result> instanceGroup : grouped.values()) {
-//            averaged.add(Result.averageInstanceResults(instanceGroup));
-//        }
-//
-//        // ------------------------------------------------
-//        return averaged;
     }
 
     @SafeVarargs
@@ -144,4 +131,3 @@ public class Experiment2 {
         }
     }
 }
-

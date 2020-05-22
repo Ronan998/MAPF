@@ -8,17 +8,17 @@ import java.util.Collection;
 
 public class Result {
     // Time limit in seconds
-    private int timeLimit;
+    private Integer timeLimit;
 
-    private int numberOfAgents;
+    private Integer numberOfAgents;
 
-    private double completionRate;
+    private Double completionRate;
 
-    private double averageCompletionTimeSeconds;
+    private Double averageCompletionTimeSeconds;
 
-    private double averageCompletionTimeSteps;
+    private Double averageCompletionTimeSteps;
 
-    private double averageTravelDistance;
+    private Double averageTravelDistance;
 
     public Result(int timeLimit,
                   int numberOfAgents,
@@ -32,6 +32,54 @@ public class Result {
         this.averageCompletionTimeSeconds = averageCompletionTimeSeconds;
         this.averageCompletionTimeSteps = averageCompletionTimeSteps;
         this.averageTravelDistance = averageTravelDistance;
+    }
+
+    private Result(Builder builder) {
+        this.timeLimit = builder.timeLimit;
+        this.numberOfAgents = builder.numberOfAgents;
+        this.completionRate = builder.completionRate;
+        this.averageCompletionTimeSeconds = builder.averageCompletionTimeSeconds;
+        this.averageCompletionTimeSteps = builder.averageCompletionTimeSteps;
+        this.averageTravelDistance = builder.averageTravelDistance;
+    }
+
+    public static class Builder {
+
+        private Integer timeLimit;
+        private Integer numberOfAgents;
+        private Double completionRate;
+        private Double averageCompletionTimeSeconds;
+        private Double averageCompletionTimeSteps;
+        private Double averageTravelDistance;
+
+        public Builder timeLimit(int value) {
+            this.timeLimit = value;
+            return this;
+        }
+        public Builder numberOfAgents(int value) {
+            this.numberOfAgents = value;
+            return this;
+        }
+        public Builder completionRate(double value) {
+            this.completionRate = value;
+            return this;
+        }
+        public Builder averageCompletiontimeSeconds(double value) {
+            this.averageCompletionTimeSeconds = value;
+            return this;
+        }
+        public Builder averageCompletionTimeSteps(double value) {
+            this.averageCompletionTimeSteps = value;
+            return this;
+        }
+        public Builder averageTravelDistance(double value) {
+            this.averageTravelDistance = value;
+            return this;
+        }
+
+        public Result build() {
+            return new Result(this);
+        }
     }
 
     //----------------------------------------------------------------------------------------------
@@ -213,7 +261,6 @@ public class Result {
                 "\tAverage Travel Distance: " + averageTravelDistance;
 
     }
-
 
     public static String csvHeaders() {
         return "num_agents," +

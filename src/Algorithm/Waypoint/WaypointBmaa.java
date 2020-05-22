@@ -1,14 +1,20 @@
 package Algorithm.Waypoint;
 
 import Algorithm.Time;
+import Algorithm.Util;
+import Benchmark.Benchmark;
+import Benchmark.ProblemMap;
+import Benchmark.ProblemSet;
 import Benchmark.Result;
 import Error.NoAgentAtGoalException;
 import DataStructures.graph.Graph;
 import DataStructures.graph.Node;
+import com.google.common.base.Stopwatch;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class WaypointBmaa {
 
@@ -72,11 +78,33 @@ public class WaypointBmaa {
 
         for (int stopTime : stopTimes) {
             this.timeLimit = stopTime;
-            time.startStopWatch();
             while (!allAgentsAtGoals() && underTimeLimit()) {
+                time.startStopWatch();
                 npcController();
+                time.stopStopWatch();
             }
-            time.stopStopWatch();
+            try {
+                results.add(collectResults());
+            } catch (NoAgentAtGoalException e) {
+                e.printStackTrace();
+                System.out.println("Skipping " + stopTime + "ms timelimit");
+            }
+        }
+        return results;
+    }
+
+    public List<Result> runWithMultipleTimeLimitsWithMovementCost(List<Integer> stopTimes) {
+        List<Result> results = new ArrayList<>();
+
+        for (WaypointAgent agent : agents) agent.init();
+
+        for (int stopTime : stopTimes) {
+            this.timeLimit = stopTime;
+            while (!allAgentsAtGoals() && underTimeLimit()) {
+                time.startStopWatch();
+                npcControllerWithMovementCost();
+                time.stopStopWatch();
+            }
             try {
                 results.add(collectResults());
             } catch (NoAgentAtGoalException e) {
@@ -100,16 +128,38 @@ public class WaypointBmaa {
 
         for (int stopTime : stopTimes) {
             this.timeLimit = stopTime;
-            time.startStopWatch();
             while (!allAgentsAtGoals() && underTimeLimit()) {
+                time.startStopWatch();
                 npcController();
+                time.stopStopWatch();
             }
-            time.stopStopWatch();
             try {
                 results.add(collectResults());
             } catch (NoAgentAtGoalException e) {
                 e.printStackTrace();
-                System.out.println("Skipping " + stopTime + "ms timelimit");
+            }
+        }
+        return results;
+    }
+
+    public List<Result> runWithMultipleTimeLimitsWithFulPathConstructionWithMovementCost(List<Integer> stopTimes) {
+        List<Result> results = new ArrayList<>();
+
+        time.startStopWatch();
+        for (WaypointAgent agent : agents) agent.init();
+        time.stopStopWatch();
+
+        for (int stopTime : stopTimes) {
+            this.timeLimit = stopTime;
+            while (!allAgentsAtGoals() && underTimeLimit()) {
+                time.startStopWatch();
+                npcControllerWithMovementCost();
+                time.stopStopWatch();
+            }
+            try {
+                results.add(collectResults());
+            } catch (NoAgentAtGoalException e) {
+                e.printStackTrace();
             }
         }
         return results;
@@ -127,6 +177,14 @@ public class WaypointBmaa {
 
         double completionRate = (double) agentsAtGoal / (double) agents.size();
 
+        if (completionRate == 0.00) {
+            return new Result.Builder()
+                    .timeLimit((int) timeLimit)
+                    .numberOfAgents(agents.size())
+                    .completionRate(completionRate)
+                    .build();
+        }
+
         // Completion Time (Seconds)
         double averageCompletionTimeSeconds =
                 agents.stream()
@@ -140,7 +198,7 @@ public class WaypointBmaa {
                     }
                 })
                 .average()
-                .orElseThrow(RuntimeException::new);
+                .orElse(Double.NaN);
 
         // Completion Time (Time steps)
         int max =
@@ -164,22 +222,22 @@ public class WaypointBmaa {
                     }
                 })
                 .average()
-                .orElseThrow(RuntimeException::new);
+                .orElse(Double.NaN);
 
         // Travel distances
         double averageTravelDistance =
                 agents.stream()
                 .mapToDouble(agent -> agent.getTravelDistance(timeLimit))
                 .average()
-                .orElseThrow(RuntimeException::new);
+                .orElse(Double.NaN);
 
-        return new Result(
-                (int) timeLimit,
-                agents.size(),
-                completionRate,
-                averageCompletionTimeSeconds,
-                averageCompletionTimeSteps,
-                averageTravelDistance);
+        return new Result.Builder()
+                .timeLimit((int) timeLimit)
+                .numberOfAgents(agents.size())
+                .completionRate(Double.isNaN(completionRate) ? null : completionRate)
+                .averageCompletiontimeSeconds(Double.isNaN(averageCompletionTimeSeconds) ? null : averageCompletionTimeSeconds)
+                .averageCompletionTimeSteps(Double.isNaN(averageCompletionTimeSteps) ? null : averageCompletionTimeSteps)
+                .averageTravelDistance(Double.isNaN(averageTravelDistance) ? null : averageTravelDistance).build();
     }
 
     // ------------------------------------------------------------------------------------------
@@ -192,7 +250,6 @@ public class WaypointBmaa {
         for (WaypointAgent agent : agents) {
             if (agent.nextNodeIsDefined()) {
                 Node n = agent.getNextNode();
-
                 if (PUSH && n.isOccupied() && n.getAgent().atGoal()) {
                     n.getAgent().push();
                 }
@@ -206,6 +263,33 @@ public class WaypointBmaa {
         time.incrementTimeStep();
     }
 
+    private void npcControllerWithMovementCost() {
+        for (WaypointAgent agent : agents) {
+            agent.searchPhase();
+        }
+
+        for (WaypointAgent agent : agents) {
+            if (agent.nextNodeIsDefined()) {
+                Node n = agent.getNextNode();
+                if (PUSH && n.isOccupied() && n.getAgent().atGoal()) {
+                    n.getAgent().push();
+                }
+
+                if (!n.isOccupied()) {
+                    agent.moveToNextOnPath();
+                }
+            }
+        }
+
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        time.incrementTimeStep();
+    }
     // ------------------------------------------------------------------------------------------
 
     private void createAgents(Graph graph, List<Node> s, List<Node> t,

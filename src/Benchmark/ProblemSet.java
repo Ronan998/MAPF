@@ -6,6 +6,7 @@ import DataStructures.graph.Node;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -73,6 +74,92 @@ public class ProblemSet {
             t.add(target);
         }
         return new ProblemSet(graph, s, t);
+    }
+
+    /**
+     * Create a problem set in which agents start from a specified region of the graph and have goals in another
+     * specified region of the graph.
+     * @param numAgents the number of agents that the problem set should have
+     * @return the problem set
+     */
+    public static ProblemSet fromRegions(Graph graph, int numAgents, Region startingBox, Region targetsBox) {
+
+        List<Node> s = new ArrayList<>(numAgents);
+        List<Node> t = new ArrayList<>(numAgents);
+
+        List<Node> possibleStarts = graph.nodes().stream()
+                .filter(startingBox::isWithin)
+                .collect(Collectors.toList());
+
+        List<Node> possibleEnds = graph.nodes().stream()
+                .filter(targetsBox::isWithin)
+                .collect(Collectors.toList());
+
+        if (possibleStarts.size() < numAgents || possibleEnds.size() < numAgents) {
+            throw new RuntimeException("Error: Not enough graph space to create agents");
+        }
+
+        Random rand = new Random();
+        for (int i = 0; i < numAgents; i++) {
+
+            Node start = possibleStarts.get(rand.nextInt(possibleStarts.size()));
+
+            while (s.contains(start)) {
+                start = possibleStarts.get(rand.nextInt(possibleStarts.size()));
+            }
+
+            Node target = possibleEnds.get(rand.nextInt(possibleEnds.size()));
+
+            while (t.contains(target)) {
+                target = possibleEnds.get(rand.nextInt(possibleEnds.size()));
+            }
+
+            while (!graph.pathExists(start, target)) {
+                start = possibleStarts.get(rand.nextInt(possibleStarts.size()));
+
+                while (s.contains(start)) {
+                    start = possibleStarts.get(rand.nextInt(possibleStarts.size()));
+                }
+
+                target = possibleEnds.get(rand.nextInt(possibleEnds.size()));
+
+                while (t.contains(target)) {
+                    target = possibleEnds.get(rand.nextInt(possibleEnds.size()));
+                }
+            }
+
+            s.add(start);
+            t.add(target);
+        }
+        return new ProblemSet(graph, s, t);
+    }
+
+    public static class Region {
+        private final int x1;
+        private final int y1;
+        private final int x2;
+        private final int y2;
+
+        public Region(int x1, int y1, int x2, int y2) {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
+        }
+
+        public boolean isWithin(int x, int y) {
+            if (x < x1 || x > x2 || y < y1 || y > y2) {
+                return false;
+            }
+            return true;
+        }
+
+        public boolean isWithin(Node node) {
+            if (node.getX() < x1 || node.getX() > x2 || node.getY() < y1 || node.getY() > y2) {
+                return false;
+            }
+            return true;
+        }
     }
 
     // ---------------------------------------------------------------------------------------
@@ -196,5 +283,14 @@ public class ProblemSet {
                 "\tShortest distance: " + this.shortestPathDistance() + "\n" +
                 "\tLongest distance: " + this.longestPathDistance() + "\n" +
                 "\tAverage distance: " + this.averagePathDistance();
+    }
+
+    public static void main(String[] args) {
+        Graph graph = ProblemMap.graphFromMap("maps/long-obstacle (512*512).map");
+        ProblemSet problemSet = ProblemSet.fromRegions(graph,
+                2000,
+                new ProblemSet.Region(60, 0, 440, 480),
+                new ProblemSet.Region(60, 420, 440, 512));
+        problemSet.printST();
     }
 }

@@ -17,10 +17,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Purpose of these experiments in this class is to get data on how completion rate scales over time
- * for the Waypoint algorithm.
+ * Purpose of this experiment is to test Waypoint BMAA (timing full path construction) on the long convex obstacle map,
+ * where we restrict agent starting positions to the bottom half of the map and
+ * agent goals to the top of the map.
  */
-public class Experiment2 {
+public class Experiment4 {
 
     public static Path currentLogPath;
 
@@ -92,7 +93,10 @@ public class Experiment2 {
         for (int i = 0; i < 10; i++) {
 
             Graph graph = ProblemMap.graphFromMap(mapPath);
-            ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
+            ProblemSet problemSet = ProblemSet.fromRegions(graph,
+                    agentCount,
+                    new ProblemSet.Region(60, 0, 440, 480),
+                    new ProblemSet.Region(60, 420, 440, 512));
 
             List<Result> results = new WaypointBmaa(graph,
                     problemSet.getS(),

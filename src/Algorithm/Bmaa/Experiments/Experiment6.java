@@ -1,11 +1,11 @@
-package Algorithm.Waypoint.Experiments;
+package Algorithm.Bmaa.Experiments;
 
-import Algorithm.Waypoint.WaypointBmaa;
+import Algorithm.Bmaa.Bmaa;
 import Benchmark.Benchmark;
 import Benchmark.Result;
+import DataStructures.graph.Graph;
 import Benchmark.ProblemSet;
 import Benchmark.ProblemMap;
-import DataStructures.graph.Graph;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,11 +16,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Purpose of these experiments in this class is to get data on how completion rate scales over time
- * for the Waypoint algorithm.
- */
-public class Experiment2 {
+public class Experiment6 {
+
 
     public static Path currentLogPath;
 
@@ -92,16 +89,19 @@ public class Experiment2 {
         for (int i = 0; i < 10; i++) {
 
             Graph graph = ProblemMap.graphFromMap(mapPath);
-            ProblemSet problemSet = ProblemSet.randomProblemSet(graph, agentCount);
+            ProblemSet problemSet = ProblemSet.fromRegions(graph,
+                    agentCount,
+                    new ProblemSet.Region(60, 0, 440, 480),
+                    new ProblemSet.Region(60, 420, 440, 512));
 
-            List<Result> results = new WaypointBmaa(graph,
+            List<Result> results = new Bmaa(graph,
                     problemSet.getS(),
                     problemSet.getT(),
-                    WaypointBmaa.DEFAULT_EXPANSIONS,
-                    WaypointBmaa.DEFAULT_VISION,
-                    WaypointBmaa.DEFAULT_MOVES,
+                    Bmaa.DEFAULT_EXPANSIONS,
+                    Bmaa.DEFAULT_VISION,
+                    Bmaa.DEFAULT_MOVES,
                     false,
-                    false).runWithMultipleTimeLimitsWithFulPathConstruction(Benchmark.TIME_LIMITS);
+                    false).runWithMultipleTimeLimitsWithMovementCost(Benchmark.TIME_LIMITS);
 
             for (Result result : results) {
                 writeToFile(currentLogPath, List.of(result.toCsvString()));
@@ -144,4 +144,3 @@ public class Experiment2 {
         }
     }
 }
-

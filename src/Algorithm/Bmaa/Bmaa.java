@@ -83,6 +83,26 @@ public class Bmaa{
         return results;
     }
 
+    public List<Result> runWithMultipleTimeLimitsWithMovementCost(List<Integer> stopTimes) {
+        List<Result> results = new ArrayList<>();
+
+        for (int stopTime : stopTimes) {
+            this.timeLimit = stopTime;
+            while (!allAgentsAtGoals() && underTimeLimit()) {
+                time.startStopWatch();
+                npcController();
+                time.stopStopWatch();
+            }
+            try {
+                results.add(collectResults());
+            } catch (NoAgentAtGoalException e) {
+                e.printStackTrace();
+                System.out.println("Skipping " + stopTime + "ms timelimit");
+            }
+        }
+        return results;
+    }
+
     private Result collectResults() {
 
         // Completion Rate
@@ -174,6 +194,33 @@ public class Bmaa{
         time.incrementTimeStep();
     }
 
+    private void npcControllerWithMovementCost() {
+        for (BmaaAgent agent : agents) {
+            agent.searchPhase();
+        }
+
+        for (BmaaAgent agent : agents) {
+            if (agent.nextNodeIsDefined()) {
+                Node n = agent.getNextNode();
+
+                if (PUSH && n.isOccupied() && n.getAgent().atGoal()) {
+                    n.getAgent().push();
+                }
+
+                if (!n.isOccupied()) {
+                    agent.moveToNextOnPath();
+                }
+            }
+        }
+
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        time.incrementTimeStep();
+    }
     // ------------------------------------------------------------------------------------------
 
     private void createAgents(Graph graph, List<Node> s, List<Node> t,

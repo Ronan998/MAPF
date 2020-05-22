@@ -33,7 +33,7 @@ public class EvaluationWithFullPathConstructionTime {
                     50000);
 
     public static void main(String[] args) {
-        experiment2(Benchmark.BMAA_TEST_MAPS);
+        experiment2(List.of("maps/DAO-lgt300d (747*531).map"));
     }
 
     /**
