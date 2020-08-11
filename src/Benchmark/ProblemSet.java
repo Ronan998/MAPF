@@ -285,12 +285,4 @@ public class ProblemSet {
                 "\tAverage distance: " + this.averagePathDistance();
     }
 
-    public static void main(String[] args) {
-        Graph graph = ProblemMap.graphFromMap("maps/long-obstacle (512*512).map");
-        ProblemSet problemSet = ProblemSet.fromRegions(graph,
-                2000,
-                new ProblemSet.Region(60, 0, 440, 480),
-                new ProblemSet.Region(60, 420, 440, 512));
-        problemSet.printST();
-    }
 }
