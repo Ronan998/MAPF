@@ -37,44 +37,10 @@ public class Experiment6 {
             currentLogPath = Path.of("logs/" + fileName);
             writeToFile(currentLogPath, List.of(Result.csvHeaders()));
 
-//            List<List<Result>> results = new ArrayList<>();
-
             for (int agentCount : Benchmark.BMAA_AGENT_COUNTS) {
                 System.out.println("Running Waypoint BMAA on " + fileName + " with " + agentCount + " agents");
                 runForNAgents(mapPath, agentCount);
             }
-
-//            // Group by stopping time
-//            java.util.Map<Integer, List<Result>> grouped =
-//                    results.stream()
-//                            .flatMap(List::stream)
-//                            .collect(Collectors.groupingBy(Result::getTimeLimit, Collectors.toList()));
-//
-//            // Record these results
-//            String fileName =
-//                    mapPath.replaceAll("maps/", "")
-//                            .replaceAll(".map", "")
-//                            .replaceAll(" ", "_") + ".csv";
-//            Path file = Path.of("logs/detail_" + fileName);
-//            writeToFile(file, List.of(Result.csvHeaders()),
-//                    grouped.entrySet().stream().flatMap(entry -> entry.getValue().stream())
-//                            .map(Result::toCsvString)
-//                            .collect(Collectors.toList()));
-//
-//            // Average the results across different agent counts
-//            List<Result> averaged = new ArrayList<>();
-//            for (List<Result> r : grouped.values()) {
-//                averaged.add(Result.averageDifferentAgentCountsResults(r));
-//            }
-//
-//            // At the end we have a result for each time limit averaged across different agent counts
-//            file = Path.of("logs/averaged_" + fileName);
-//            writeToFile(file,
-//                    List.of(Result.csvHeaders()),
-//                    averaged.stream()
-//                            .map(Result::toCsvString)
-//                            .collect(Collectors.toList())
-//            );
         }
     }
 

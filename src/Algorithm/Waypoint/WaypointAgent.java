@@ -484,12 +484,6 @@ public class WaypointAgent extends Agent {
             }
 
             for (Node neighbour : graph.getNeigbours(n)) {
-                double distance = n.euclideanDistance(neighbour);
-
-//                if ((neighbour.isOccupied() && (neighbour != goal)) && distance < vision) {
-//                    continue;
-//                }
-
                 if (!closed.containsKey(neighbour)) {
                     if (open.contains(neighbour)) {
                         double gCostOnRecord = gCosts.get(neighbour);
